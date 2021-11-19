@@ -2,11 +2,11 @@
 // MENU DINAMICO
 #include "Menu.hpp"
 
-Menu::Menu(){
+Menu::Menu(){}
+
+void Menu::startMenu(){
     DisplayMessage1();
 }
-
-
 void Menu::DisplayMessage1(){
     system("cls");
     cout << "PROGETTO PROGRAMMAZIONE: GIOCO PLATFORM IN GRAFICA ASCII" << endl 
@@ -80,8 +80,8 @@ bool Menu::setSkinNumber(){
             skin = 'F';
             return 1;
         default:
-            DynamicMenu( key );
-            return 0;
+            skin = '@';
+            return 1;
             break;
     }
 }
@@ -110,16 +110,19 @@ void Menu::DynamicMenu( int k ){
         case 'X':
         case 'x':
             ExitMenu();
+            break;
         case 'B':
         case 'b':
             count--;
             DisplayNumber();
+            break;
         case 'N':
         case 'n':
             count++;
             DisplayNumber();
-        default:
             break;
+        default:
+            DynamicMenu(_getch());
     }
 }
 
@@ -129,24 +132,24 @@ void Menu::ExitMenu(){
 
 void Menu::DisplayNumber(){
     switch( count ){
-            case 1:
-                DisplayMessage1();
-                break;
-            case 2:
-                DisplayMessage2();
-                break;
-            case 3:
-                DisplayMessage3();
-                break;
-            case 4:
-                DisplayMessage4();
-                break;
-            case 5:
-                DisplayMessage5();
-                break;
-            default:
-                system("cls");
-                cout << "\nFATAL ERROR\n";
+        case 1:
+            DisplayMessage1();
+            break;
+        case 2:
+            DisplayMessage2();
+            break;
+        case 3:
+            DisplayMessage3();
+            break;
+        case 4:
+            DisplayMessage4();
+            break;
+        case 5:
+            DisplayMessage5();
+            break;
+        default:
+            system("cls");
+            break;
     }
 }
 

@@ -7,6 +7,8 @@ class Menu{
     public:
         Menu();
 
+        void startMenu();
+
         void DisplayMessage1(); // Stampa messaggio di benvenuto ( chiamata all'avvio del gioco )
 
         void DisplayMessage2(); // Richiede di inserire il nome utente ( username )
@@ -36,6 +38,6 @@ class Menu{
     
     protected:
         char username[20]; // Nome Utente che inizia una partita
-        char skin = '@'; // Immagine stampata a schermo del personaggio
+        char skin; // Immagine stampata a schermo del personaggio
         int count = 1; // Contatore che riconosce il numero della pagina del menu
 };
