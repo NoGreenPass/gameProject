@@ -24,8 +24,8 @@ void World::createAndPrintFirstLevel(){
     Bonus B = Bonus (D.getDifficulty());
     B.getChoice(P.PatternChoice( tmp -> matrix, X, Y ), tmp -> matrix, X, Y);
     printMap(tmp ->matrix);
-    SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {H.getColumnPosition(),H.getRowPosition()});
-    putch( H.getSkin() );
+    H.setHeroPosition( 18,1 );
+    H.heroOnScreen();
     D.printData();
 }
 
@@ -42,6 +42,13 @@ void World::addNode() {
     L.tail = p;
     L.ptr = L.tail;
     L.head = q;
+    Platform P(1,tmp->matrix,0,0);
+    Bonus B = Bonus (D.getDifficulty());
+    B.getChoice(P.PatternChoice( tmp -> matrix, X, Y ), tmp -> matrix, X, Y);
+    printMap(tmp ->matrix);
+    H.setHeroPosition( 18,1 );
+    H.heroOnScreen();
+    D.printData();
 }
 
 void World::changeNode( bool direction ) {
@@ -92,15 +99,18 @@ void World::startGame() {
         switch( key ){
             case 'A':
             case 'a':
+                // TODO: Aggiungere chiamata a funzioni di cambio nodo con opportune condizioni
                 printMap( p -> matrix );
                 H.heroOnScreen();
                 userPressA();
                 break; 
             case 'D':
             case 'd': 
-                printMap( p -> matrix );
-                H.heroOnScreen();
-                userPressD();
+                if( H.getColumnPosition() != 39 ){
+                    printMap( p -> matrix );
+                    H.heroOnScreen();
+                    userPressD();
+                } else addNode();
                 break;
             case 'W':
             case 'w':
@@ -125,15 +135,12 @@ void World::userPressA(){
         if( p -> matrix[H.getRowPosition()+1][H.getColumnPosition()-1] == '=' )
             H.isMovingLeft();
     // TODO: Aggiungere casi in cui hero entra in contatto con nemici o bonus
-    // TODO: Aggiungere chiamata a funzioni di cambio nodo con opportune condizioni
 }
 
 void World::userPressD(){
-    if( H.getColumnPosition() != 39 &&  p -> matrix[H.getRowPosition()][H.getColumnPosition() + 1] != '=' )
-        if( p -> matrix[H.getRowPosition()+1][H.getColumnPosition()+1] == '=' )
-            H.isMovingRight();
+    if( p -> matrix[H.getRowPosition()][H.getColumnPosition() + 1] != '=' &&  p -> matrix[H.getRowPosition()+1][H.getColumnPosition()+1] == '=' )
+        H.isMovingRight();
     // TODO: Aggiungere casi in cui hero entra in contatto con nemici o bonus
-    // TODO: Aggiungere chiamata a funzioni di cambio nodo con opportune condizioni
 }
 
 void World::userPressW(){ 

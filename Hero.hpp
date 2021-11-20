@@ -7,7 +7,7 @@ class Hero{
 
         void setSkin( char );
         char getSkin();
-        void setHeroPosition( int, int );
+        void setHeroPosition( short, short );
         short getRowPosition();
         short getColumnPosition();
 

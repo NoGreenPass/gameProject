@@ -12,7 +12,7 @@ char Hero::getSkin(){
     return skin;
 }
 
-void Hero::setHeroPosition( int row, int column ){
+void Hero::setHeroPosition( short row, short column ){
     this -> row = row;
     this -> column = column;
 }
@@ -28,7 +28,10 @@ short Hero::getColumnPosition(){
 void Hero::isMovingRight(){
     SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {column,row});
     putch( ' ' );
-    column++;
+    if( column != 39 )
+        column = column + 1 ;
+    else 
+        setHeroPosition( 18,1 );
     heroOnScreen();
 }
 

@@ -54,8 +54,8 @@ void GameData::reduceScore(int s ){
 }
 
 void GameData::printDifficulty(){
-    if( difficulty >= 1 && difficulty <= 5 ) cout << "Easy";
-    else if( difficulty < 10 ) cout << "Medium";
+    if( difficulty >= 1 && difficulty <= 3 ) cout << "Easy";
+    else if( difficulty < 6 ) cout << "Medium";
          else cout << "Hard"; // *DA AMPLIARE* 
 }
 int  GameData::getDifficulty(){
