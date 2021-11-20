@@ -52,6 +52,7 @@ void World::addNode() {
 }
 
 void World::changeNode( bool direction ) {
+    //TODO :: scrivere la funzione
 }
 
 void World::addEmptySpace(char m[][40]) {
