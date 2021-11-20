@@ -55,7 +55,7 @@ void Menu::DisplayMessage4(){
     DefaultDisplayMessage( 0, 12 );
     while( !doit ) doit = setSkinNumber();
     SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {0,8});
-    cout << " Carattere impostato con successo! " << endl << "Premere N per continuare..." << endl;
+    cout << "Carattere impostato con successo! " << endl << "Premere N per continuare..." << endl;
     DynamicMenu( _getch() );
 }
 bool Menu::setSkinNumber(){
