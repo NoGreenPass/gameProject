@@ -10,8 +10,10 @@ class GameData{
         int getLevelNumber();
         void riseLevelNumber(); // Incrementa il numero del livello ( sotto opportune condizioni )
         void reduceLevelNumber();
-
+        void printLevelNumber();
+        
         void printData(); // Stampa dati gioco in una posizione predefinita dello schermo
+        void printName();
 
         int getLifePoints();
         void riseLifePoints( int ); // Incrementa i punti vita ( sotto opportune condizioni )
@@ -19,6 +21,7 @@ class GameData{
 
         void riseScore( int ); // Incrementa il punteggio ( sotto opportune condizioni )
         void reduceScore( int ); // Diminuisce il punteggio ( sotto opprtune condizioni )
+        void printScore();
      
         void printDifficulty(); // Stampa il livello di difficolta' ( vista utente )
         int getDifficulty(); // return difficulty

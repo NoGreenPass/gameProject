@@ -24,6 +24,8 @@ class Menu{
         void DynamicMenu( int ) ;
         void DisplayNumber(); // Associa al valore del count il DisplayMessage da stampare
         void ExitMenu();
+
+        void endGame();
         
         char getPlayerSkin(); // return della skin 
         char *getPlayerName() ; // return del nome giocatore

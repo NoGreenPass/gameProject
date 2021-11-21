@@ -150,6 +150,14 @@ void Menu::ExitMenu(){
 }
 
 
+void Menu::endGame(){
+    system( "cls" );
+    cout << "FINE PARTITA" << endl
+    << "===============================================================================" << endl
+    << "Nome \t" << "Punteggio\t" << "Livello" << endl;
+}
+
+
 char Menu::getPlayerSkin(){
     return skin;
 }

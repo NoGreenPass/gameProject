@@ -190,8 +190,15 @@ void World::updateData() {
 }
 
 void World::gameover() {
-    exit(1);
-    // TODO : Implementare la funzione 
+    M.endGame();
+    D.printName();
+    cout << "\t";
+    D.printScore();
+    cout << "\t\t";
+    D.printLevelNumber();
+    cout << endl << endl << "Premere x per uscire." << endl;
+    while( getch() != 'x' )
+    M.ExitMenu();
 }
 
 

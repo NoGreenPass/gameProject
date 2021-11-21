@@ -22,12 +22,14 @@ void GameData::reduceLevelNumber(){
     levelNumber--;
 }
 
+void GameData::printLevelNumber(){
+    cout << levelNumber;
+}
+
 void GameData::printData(){
     SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {45,4});
     cout << "Name: ";
-    for(int i=0; name[i]!='\0'; i++) {
-        cout << name[i];
-    };
+    printName();
     SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {45,5});
     cout << "Life: " << lifePoints;
     SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {45,6});
@@ -37,6 +39,12 @@ void GameData::printData(){
     SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {45,8});
     cout << "Difficulty: ";
     printDifficulty();
+}
+
+void GameData::printName(){
+    for(int i=0; name[i]!='\0'; i++) {
+        cout << name[i];
+    }
 }
 
 int GameData::getLifePoints(){
@@ -54,6 +62,10 @@ void GameData::riseScore( int s ){
 }
 void GameData::reduceScore(int s ){
     score = score - s;
+}
+
+void GameData::printScore(){
+    cout << score;
 }
 
 void GameData::printDifficulty(){
