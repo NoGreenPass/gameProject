@@ -17,10 +17,10 @@ void World::createAndPrintFirstLevel(){
     L.tail = p;
     L.ptr = L.tail;
     L.head = q;  
-    addEmptySpace( p->matrix );
-    leftWall( p->matrix );
-    topDownWall( p->matrix );
-    Platform P(1,p->matrix,0,0);
+    addEmptySpace( L.ptr ->matrix );
+    leftWall( L.ptr ->matrix );
+    topDownWall( L.ptr ->matrix );
+    Platform P(D.getLevelNumber(),L.ptr -> matrix, X, Y);
     Bonus B = Bonus (D.getDifficulty());
     B.getChoice(P.PatternChoice( L.ptr -> matrix, X, Y ), L.ptr -> matrix, X, Y);
     printMap( L.ptr ->matrix );
@@ -40,9 +40,9 @@ void World::addNode() {
     L.tail = p;
     L.ptr = L.tail;
     L.head = q;
-    addEmptySpace(p->matrix);
-    topDownWall(p->matrix);
-    Platform P(1,p->matrix,0,0);
+    addEmptySpace(L.ptr->matrix);
+    topDownWall(L.ptr ->matrix);
+    Platform P(D.getLevelNumber(),L.ptr->matrix,X,Y);
     Bonus B = Bonus (D.getDifficulty());
     B.getChoice(P.PatternChoice( L.ptr -> matrix, X, Y ), L.ptr -> matrix, X, Y);
     printMap( L.ptr ->matrix );
