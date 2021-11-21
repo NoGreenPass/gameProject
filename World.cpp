@@ -7,12 +7,9 @@ World::World() {
 }
 
 void World::createAndPrintFirstLevel(){
-    counterNode = 0;
+    counterNode = 1;
     D.riseLevelNumber();
     tmp = new Map;
-    addEmptySpace(tmp->matrix);
-    leftWall(tmp->matrix);
-    topDownWall(tmp->matrix);
     tmp -> prec = p;
     q = tmp;
     p = tmp;	
@@ -20,10 +17,13 @@ void World::createAndPrintFirstLevel(){
     L.tail = p;
     L.ptr = L.tail;
     L.head = q;  
-    Platform P(1,tmp->matrix,0,0);
+    addEmptySpace( p->matrix );
+    leftWall( p->matrix );
+    topDownWall( p->matrix );
+    Platform P(1,p->matrix,0,0);
     Bonus B = Bonus (D.getDifficulty());
-    B.getChoice(P.PatternChoice( tmp -> matrix, X, Y ), tmp -> matrix, X, Y);
-    printMap(tmp ->matrix);
+    B.getChoice(P.PatternChoice( L.ptr -> matrix, X, Y ), L.ptr -> matrix, X, Y);
+    printMap( L.ptr ->matrix );
     H.setHeroPosition( 18,1 );
     H.heroOnScreen();
     D.printData();
@@ -33,8 +33,6 @@ void World::addNode() {
     counterNode++;
     D.riseLevelNumber();
     tmp = new Map;
-    addEmptySpace(tmp->matrix);
-    topDownWall(tmp->matrix);
     tmp -> prec = p;
     p->next = tmp;
     p = tmp;
@@ -42,17 +40,33 @@ void World::addNode() {
     L.tail = p;
     L.ptr = L.tail;
     L.head = q;
-    Platform P(1,tmp->matrix,0,0);
+    addEmptySpace(p->matrix);
+    topDownWall(p->matrix);
+    Platform P(1,p->matrix,0,0);
     Bonus B = Bonus (D.getDifficulty());
-    B.getChoice(P.PatternChoice( tmp -> matrix, X, Y ), tmp -> matrix, X, Y);
-    printMap(tmp ->matrix);
+    B.getChoice(P.PatternChoice( L.ptr -> matrix, X, Y ), L.ptr -> matrix, X, Y);
+    printMap( L.ptr ->matrix );
     H.setHeroPosition( 18,1 );
     H.heroOnScreen();
     D.printData();
 }
 
-void World::changeNode( bool direction ) {
-    //TODO :: scrivere la funzione
+void World::changeNode( bool direction ) { 
+    if( !direction ){ // direction == 0 se hero si sposta all'indietro
+        L.ptr = L.ptr -> prec;
+        D.reduceLevelNumber();
+        printMap(L.ptr ->matrix);
+        H.setHeroPosition( 18,39 );
+        H.heroOnScreen();
+        D.printData();
+    } else{
+        L.ptr = L.ptr -> next;
+        D.riseLevelNumber();
+        printMap(L.ptr ->matrix);
+        H.setHeroPosition( 18,1 );
+        H.heroOnScreen();
+        D.printData();
+    }
 }
 
 void World::addEmptySpace(char m[][40]) {
@@ -100,28 +114,32 @@ void World::startGame() {
         switch( key ){
             case 'A':
             case 'a':
-                // TODO: Aggiungere chiamata a funzioni di cambio nodo con opportune condizioni
-                printMap( p -> matrix );
-                H.heroOnScreen();
-                userPressA();
+                if( H.getColumnPosition() != 1 ){
+                    printMap( L.ptr -> matrix );
+                    H.heroOnScreen();
+                    userPressA();
+                } else if( D.getLevelNumber() > 1) changeNode(0);
                 break; 
             case 'D':
             case 'd': 
                 if( H.getColumnPosition() != 39 ){
-                    printMap( p -> matrix );
+                    printMap( L.ptr -> matrix );
                     H.heroOnScreen();
                     userPressD();
-                } else addNode();
+                }else{ 
+                    if(D.getLevelNumber() == counterNode ) addNode();
+                    else changeNode(1);
+                }
                 break;
             case 'W':
             case 'w':
-                printMap( p -> matrix );
+                printMap( L.ptr -> matrix );
                 H.heroOnScreen();
                 userPressW();
                 break;
             case 'S':
             case 's':
-                printMap( p -> matrix );
+                printMap( L.ptr -> matrix );
                 H.heroOnScreen();
                 userPressS();
                 break; 
@@ -132,28 +150,28 @@ void World::startGame() {
 }
 
 void World::userPressA(){
-    if( H.getColumnPosition() != 1 && p -> matrix[H.getRowPosition()][H.getColumnPosition() - 1] != '=' )
-        if( p -> matrix[H.getRowPosition()+1][H.getColumnPosition()-1] == '=' )
+    if( L.ptr -> matrix[H.getRowPosition()][H.getColumnPosition() - 1] != '=' )
+        if( L.ptr -> matrix[H.getRowPosition()+1][H.getColumnPosition()-1] == '=' )
             H.isMovingLeft();
     // TODO: Aggiungere casi in cui hero entra in contatto con nemici o bonus
 }
 
 void World::userPressD(){
-    if( p -> matrix[H.getRowPosition()][H.getColumnPosition() + 1] != '=' &&  p -> matrix[H.getRowPosition()+1][H.getColumnPosition()+1] == '=' )
+    if( L.ptr -> matrix[H.getRowPosition()][H.getColumnPosition() + 1] != '=' &&  L.ptr -> matrix[H.getRowPosition()+1][H.getColumnPosition()+1] == '=' )
         H.isMovingRight();
     // TODO: Aggiungere casi in cui hero entra in contatto con nemici o bonus
 }
 
 void World::userPressW(){ 
-    if(  H.getColumnPosition() != 39 && p -> matrix[H.getRowPosition()][H.getColumnPosition() + 1] == '=')
+    if(  H.getColumnPosition() != 39 && L.ptr -> matrix[H.getRowPosition()][H.getColumnPosition() + 1] == '=')
         H.isMovingUp(1);
-    else if( H.getColumnPosition() != 1 &&  p -> matrix[H.getRowPosition()][H.getColumnPosition() - 1] == '=')
+    else if( H.getColumnPosition() != 1 &&  L.ptr -> matrix[H.getRowPosition()][H.getColumnPosition() - 1] == '=')
         H.isMovingUp(0);
 }
 
 void World::userPressS(){
-        if(  H.getRowPosition() != 18 && p -> matrix[H.getRowPosition()+1][H.getColumnPosition()+1] != '='){
-            if( p -> matrix[H.getRowPosition()+2][H.getColumnPosition()+1] != '=' ){
+        if(  H.getRowPosition() != 18 && L.ptr -> matrix[H.getRowPosition()+1][H.getColumnPosition()+1] != '='){
+            if( L.ptr -> matrix[H.getRowPosition()+2][H.getColumnPosition()+1] != '=' ){
                 short tmp = H.getColumnPosition() + 1;
                 SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {H.getColumnPosition(),H.getRowPosition()});
                 putch(' ');
@@ -161,12 +179,12 @@ void World::userPressS(){
                 H.isMovingDown(1);
             } else H.isMovingDown(1);
         }
-        else if( H.getRowPosition() != 18 &&  p -> matrix[H.getRowPosition()+1][H.getColumnPosition()-1] != '='){
-            if( p -> matrix[H.getRowPosition()+2][H.getColumnPosition()-1] != '=' ){
-                short tmp = H.getColumnPosition() - 1;
+        else if( H.getRowPosition() != 18 &&  L.ptr -> matrix[H.getRowPosition()+1][H.getColumnPosition()-1] != '='){
+            if( L.ptr -> matrix[H.getRowPosition()+2][H.getColumnPosition()-1] != '=' ){
+                short newColumnPosition = H.getColumnPosition() - 1;
                 SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {H.getColumnPosition(),H.getRowPosition()});
                 putch(' ');
-                H.setHeroPosition(17, tmp );
+                H.setHeroPosition(17, newColumnPosition );
                 H.isMovingDown(0);
             } else H.isMovingDown(0);
         }

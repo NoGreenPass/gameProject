@@ -9,6 +9,7 @@ class GameData{
 
         int getLevelNumber();
         void riseLevelNumber(); // Incrementa il numero del livello ( sotto opportune condizioni )
+        void reduceLevelNumber();
 
         void printData(); // Stampa dati gioco in una posizione predefinita dello schermo
 

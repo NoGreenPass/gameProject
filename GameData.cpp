@@ -14,9 +14,12 @@ int GameData::getLevelNumber(){
 
 void GameData::riseLevelNumber(){
     levelNumber++;
-    if( levelNumber % 5 == 0 ){
+    if( levelNumber % 5 == 0 )
         difficulty++;
-    }
+}
+
+void GameData::reduceLevelNumber(){
+    levelNumber--;
 }
 
 void GameData::printData(){
