@@ -6,6 +6,93 @@ World::World() {
     D.setName(M.getPlayerName());
 }
 
+
+void World::startGame() {
+    system("cls");
+    createAndPrintFirstLevel();
+    int key;
+    while( (key = _getch()) != 'x' && D.getLifePoints() > 0 ){
+        SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {0,0});
+        switch( key ){
+            case 'A':
+            case 'a':
+                if( H.getColumnPosition() != 1 ){
+                    printMap( L.ptr -> matrix );
+                    H.heroOnScreen();
+                    userPressA();
+                } else if( D.getLevelNumber() > 1) changeNode(0);
+                break; 
+            case 'D':
+            case 'd': 
+                if( H.getColumnPosition() != 39 ){
+                    printMap( L.ptr -> matrix );
+                    H.heroOnScreen();
+                    userPressD();
+                }else{ 
+                    if(D.getLevelNumber() == counterNode ) addNode();
+                    else changeNode(1);
+                }
+                break;
+            case 'W':
+            case 'w':
+                printMap( L.ptr -> matrix );
+                H.heroOnScreen();
+                userPressW();
+                break;
+            case 'S':
+            case 's':
+                printMap( L.ptr -> matrix );
+                H.heroOnScreen();
+                userPressS();
+                break; 
+            default: 
+                break;
+        }
+    }
+    gameover();
+}
+
+void World::userPressA(){
+    if( L.ptr -> matrix[H.getRowPosition()][H.getColumnPosition() - 1] != '=' )
+        if( L.ptr -> matrix[H.getRowPosition()+1][H.getColumnPosition()-1] == '=' )
+            H.isMovingLeft();
+    // TODO: Aggiungere casi in cui hero entra in contatto con nemici o bonus
+}
+
+void World::userPressD(){
+    if( L.ptr -> matrix[H.getRowPosition()][H.getColumnPosition() + 1] != '=' &&  L.ptr -> matrix[H.getRowPosition()+1][H.getColumnPosition()+1] == '=' )
+        H.isMovingRight();
+    // TODO: Aggiungere casi in cui hero entra in contatto con nemici o bonus
+}
+
+void World::userPressW(){ 
+    if(  H.getColumnPosition() != 39 && L.ptr -> matrix[H.getRowPosition()][H.getColumnPosition() + 1] == '=')
+        H.isMovingUp(1);
+    else if( H.getColumnPosition() != 1 &&  L.ptr -> matrix[H.getRowPosition()][H.getColumnPosition() - 1] == '=')
+        H.isMovingUp(0);
+}
+
+void World::userPressS(){
+        if(  H.getRowPosition() != 18 && L.ptr -> matrix[H.getRowPosition()+1][H.getColumnPosition()+1] != '='){
+            if( L.ptr -> matrix[H.getRowPosition()+2][H.getColumnPosition()+1] != '=' ){
+                short tmp = H.getColumnPosition() + 1;
+                SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {H.getColumnPosition(),H.getRowPosition()});
+                putch(' ');
+                H.setHeroPosition(17, tmp );
+                H.isMovingDown(1);
+            } else H.isMovingDown(1);
+        }
+        else if( H.getRowPosition() != 18 &&  L.ptr -> matrix[H.getRowPosition()+1][H.getColumnPosition()-1] != '='){
+            if( L.ptr -> matrix[H.getRowPosition()+2][H.getColumnPosition()-1] != '=' ){
+                short newColumnPosition = H.getColumnPosition() - 1;
+                SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {H.getColumnPosition(),H.getRowPosition()});
+                putch(' ');
+                H.setHeroPosition(17, newColumnPosition );
+                H.isMovingDown(0);
+            } else H.isMovingDown(0);
+        }
+}
+
 void World::createAndPrintFirstLevel(){
     counterNode = 1;
     D.riseLevelNumber();
@@ -103,90 +190,8 @@ void World::updateData() {
 }
 
 void World::gameover() {
+    exit(1);
+    // TODO : Implementare la funzione 
 }
 
-void World::startGame() {
-    system("cls");
-    createAndPrintFirstLevel();
-    int key;
-    while( (key = _getch()) != 'x' && D.getLifePoints() > 0 ){
-        SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {0,0});
-        switch( key ){
-            case 'A':
-            case 'a':
-                if( H.getColumnPosition() != 1 ){
-                    printMap( L.ptr -> matrix );
-                    H.heroOnScreen();
-                    userPressA();
-                } else if( D.getLevelNumber() > 1) changeNode(0);
-                break; 
-            case 'D':
-            case 'd': 
-                if( H.getColumnPosition() != 39 ){
-                    printMap( L.ptr -> matrix );
-                    H.heroOnScreen();
-                    userPressD();
-                }else{ 
-                    if(D.getLevelNumber() == counterNode ) addNode();
-                    else changeNode(1);
-                }
-                break;
-            case 'W':
-            case 'w':
-                printMap( L.ptr -> matrix );
-                H.heroOnScreen();
-                userPressW();
-                break;
-            case 'S':
-            case 's':
-                printMap( L.ptr -> matrix );
-                H.heroOnScreen();
-                userPressS();
-                break; 
-            default: 
-                break;
-        }
-    }
-}
-
-void World::userPressA(){
-    if( L.ptr -> matrix[H.getRowPosition()][H.getColumnPosition() - 1] != '=' )
-        if( L.ptr -> matrix[H.getRowPosition()+1][H.getColumnPosition()-1] == '=' )
-            H.isMovingLeft();
-    // TODO: Aggiungere casi in cui hero entra in contatto con nemici o bonus
-}
-
-void World::userPressD(){
-    if( L.ptr -> matrix[H.getRowPosition()][H.getColumnPosition() + 1] != '=' &&  L.ptr -> matrix[H.getRowPosition()+1][H.getColumnPosition()+1] == '=' )
-        H.isMovingRight();
-    // TODO: Aggiungere casi in cui hero entra in contatto con nemici o bonus
-}
-
-void World::userPressW(){ 
-    if(  H.getColumnPosition() != 39 && L.ptr -> matrix[H.getRowPosition()][H.getColumnPosition() + 1] == '=')
-        H.isMovingUp(1);
-    else if( H.getColumnPosition() != 1 &&  L.ptr -> matrix[H.getRowPosition()][H.getColumnPosition() - 1] == '=')
-        H.isMovingUp(0);
-}
-
-void World::userPressS(){
-        if(  H.getRowPosition() != 18 && L.ptr -> matrix[H.getRowPosition()+1][H.getColumnPosition()+1] != '='){
-            if( L.ptr -> matrix[H.getRowPosition()+2][H.getColumnPosition()+1] != '=' ){
-                short tmp = H.getColumnPosition() + 1;
-                SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {H.getColumnPosition(),H.getRowPosition()});
-                putch(' ');
-                H.setHeroPosition(17, tmp );
-                H.isMovingDown(1);
-            } else H.isMovingDown(1);
-        }
-        else if( H.getRowPosition() != 18 &&  L.ptr -> matrix[H.getRowPosition()+1][H.getColumnPosition()-1] != '='){
-            if( L.ptr -> matrix[H.getRowPosition()+2][H.getColumnPosition()-1] != '=' ){
-                short newColumnPosition = H.getColumnPosition() - 1;
-                SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {H.getColumnPosition(),H.getRowPosition()});
-                putch(' ');
-                H.setHeroPosition(17, newColumnPosition );
-                H.isMovingDown(0);
-            } else H.isMovingDown(0);
-        }
-}
 

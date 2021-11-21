@@ -2,23 +2,22 @@
 #include <windows.h>
 
 class Hero{
+    protected:
+        char skin;
+        short row; 
+        short column; 
     public:
         Hero();
-
-        void setSkin( char );
-        char getSkin();
         void setHeroPosition( short, short );
-        short getRowPosition();
-        short getColumnPosition();
 
         void isMovingRight(); 
         void isMovingLeft();
         void isMovingUp( bool );
         void isMovingDown( bool );
-
         void heroOnScreen();
-    protected:
-        char skin;
-        short row; 
-        short column; 
+
+        void setSkin( char );
+        char getSkin();
+        short getRowPosition();
+        short getColumnPosition();
 };

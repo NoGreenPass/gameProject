@@ -7,6 +7,7 @@ Menu::Menu(){}
 void Menu::startMenu(){
     DisplayMessage1();
 }
+
 void Menu::DisplayMessage1(){
     system("cls");
     cout << "PROGETTO PROGRAMMAZIONE: GIOCO PLATFORM IN GRAFICA ASCII" << endl 
@@ -16,7 +17,6 @@ void Menu::DisplayMessage1(){
     DefaultDisplayMessage( 0, 6 );
     DynamicMenu( _getch() );
 }
-
 
 void Menu::DisplayMessage2(){
     system("cls");
@@ -28,7 +28,6 @@ void Menu::DisplayMessage2(){
     DefaultDisplayMessage( 0, 8);
     DynamicMenu( _getch() );
 }
-
 
 void Menu::DisplayMessage3(){
     system("cls");
@@ -42,7 +41,6 @@ void Menu::DisplayMessage3(){
     DefaultDisplayMessage( 0, 8 );
     DynamicMenu( _getch() );
 }
-
 
 void Menu::DisplayMessage4(){
     bool doit = false;
@@ -98,12 +96,10 @@ void Menu::DisplayMessage5(){
     DynamicMenu( _getch() );
 }
 
-
 void Menu::DefaultDisplayMessage( short x, short y ){
     SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {x,y}); // Set posizione di stampa su schermo
     cout << "EXIT:X\t" << "BACK:B\t" << "NEXT:N\t" << endl;
 }
-
 
 void Menu::DynamicMenu( int k ){
     switch( k ){
@@ -124,10 +120,6 @@ void Menu::DynamicMenu( int k ){
         default:
             DynamicMenu(_getch());
     }
-}
-
-void Menu::ExitMenu(){
-    exit(1);
 }
 
 void Menu::DisplayNumber(){
@@ -152,6 +144,11 @@ void Menu::DisplayNumber(){
             break;
     }
 }
+
+void Menu::ExitMenu(){
+    exit(1);
+}
+
 
 char Menu::getPlayerSkin(){
     return skin;

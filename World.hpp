@@ -10,23 +10,7 @@ const int X = 20;
 const int Y = 40;
 
 class World {
-    public:
-        World(); //creare il primo nodo, una volta creato inizializzare la matrice (ricordarsi di richiamare Platform)
-        void createAndPrintFirstLevel(); 
-        void addNode(); //aggiungere un nodo alla lista (ricordarsi di richiamare Platform)
-        void changeNode( bool ); //aggiorna il puntatore al nodo corrente (avanti 1 e indietro 0 )
-        void addEmptySpace(char [][40]); //inserisce nella matrice tutti gli spazi vuoti
-        void printMap(char [][40]); //stampa la matrice
-        void leftWall(char [][40]); //crea il muro di sinistra
-        void topDownWall(char [][40]); //crea i muri sopra e sotto
-        void updateData(); //aggiorna i dati modificati
-        void gameover(); //gameover, richiamare il menu per esito finale
-        void startGame(); //gestione del gioco (big while)
-        void userPressA();
-        void userPressD();
-        void userPressW();
-        void userPressS();
-     private:
+     protected:
         struct Map {
             char matrix[X][Y];
             Map *prec;
@@ -47,4 +31,20 @@ class World {
         Menu M;
         /* Bullet B; */
         Hero H; 
+    public:
+        World();
+        void startGame();
+        void userPressA();
+        void userPressD();
+        void userPressW();
+        void userPressS();
+        void createAndPrintFirstLevel(); 
+        void addNode(); //aggiungere un nodo alla lista (ricordarsi di richiamare Platform)
+        void changeNode( bool ); //aggiorna il puntatore al nodo corrente (avanti 1 e indietro 0 )
+        void addEmptySpace(char [][40]); //inserisce nella matrice tutti gli spazi vuoti
+        void leftWall(char [][40]); //crea il muro di sinistra
+        void topDownWall(char [][40]); //crea i muri sopra e sotto
+        void printMap(char [][40]); //stampa la matrice
+        void updateData(); //aggiorna i dati modificati
+        void gameover(); //gameover, richiamare il menu per esito finale
 };

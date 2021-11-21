@@ -4,26 +4,11 @@ Hero::Hero(){
     setHeroPosition( 18, 1 );
 }
 
-void Hero::setSkin( char skin ){
-    this -> skin = skin;
-}
-
-char Hero::getSkin(){
-    return skin;
-}
-
 void Hero::setHeroPosition( short row, short column ){
     this -> row = row;
     this -> column = column;
 }
 
-short Hero::getRowPosition(){
-    return row;
-}
-
-short Hero::getColumnPosition(){
-    return column;
-}
 
 void Hero::isMovingRight(){
     SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {column,row});
@@ -68,3 +53,21 @@ void Hero::heroOnScreen(){
     SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {column,row});
     putch( skin );
 }
+
+
+void Hero::setSkin( char skin ){
+    this -> skin = skin;
+}
+
+char Hero::getSkin(){
+    return skin;
+}
+
+short Hero::getRowPosition(){
+    return row;
+}
+
+short Hero::getColumnPosition(){
+    return column;
+}
+
