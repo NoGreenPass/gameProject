@@ -3,6 +3,7 @@
 #include "Menu.hpp"
 #include "GameData.hpp"
 #include "Platform.hpp"
+#include "Enemy.hpp"
 
 /* #define X = 20; */
 /* #define Y = 40; */

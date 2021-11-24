@@ -109,7 +109,8 @@ void World::createAndPrintFirstLevel(){
     topDownWall( L.ptr ->matrix );
     Platform P;
     Bonus B = Bonus (D.getDifficulty());
-    B.BonusPatternChoice(P.PatternChoice( L.ptr -> matrix, X, Y ), L.ptr -> matrix, X, Y);
+    Enemy E = Enemy( D.getDifficulty() );
+    E.EnemyPatternChoice( B.BonusPatternChoice(P.PatternChoice( L.ptr -> matrix, X, Y ), L.ptr -> matrix, X, Y),  L.ptr -> matrix, X, Y );
     printMap( L.ptr ->matrix );
     H.setHeroPosition( 18,1 );
     H.heroOnScreen();
@@ -131,6 +132,8 @@ void World::addNode() {
     topDownWall(L.ptr ->matrix);
     Platform P;
     Bonus B = Bonus (D.getDifficulty());
+    Enemy E = Enemy( D.getDifficulty() );
+    E.EnemyPatternChoice( B.BonusPatternChoice(P.PatternChoice( L.ptr -> matrix, X, Y ), L.ptr -> matrix, X, Y),  L.ptr -> matrix, X, Y );
     B.BonusPatternChoice(P.PatternChoice( L.ptr -> matrix, X, Y ), L.ptr -> matrix, X, Y);
     printMap( L.ptr ->matrix );
     H.setHeroPosition( 18,1 );
