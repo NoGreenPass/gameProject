@@ -107,7 +107,7 @@ void World::createAndPrintFirstLevel(){
     addEmptySpace( L.ptr ->matrix );
     leftWall( L.ptr ->matrix );
     topDownWall( L.ptr ->matrix );
-    Platform P(D.getLevelNumber(),L.ptr -> matrix, X, Y);
+    Platform P;
     Bonus B = Bonus (D.getDifficulty());
     B.getChoice(P.PatternChoice( L.ptr -> matrix, X, Y ), L.ptr -> matrix, X, Y);
     printMap( L.ptr ->matrix );
@@ -129,7 +129,7 @@ void World::addNode() {
     L.head = q;
     addEmptySpace(L.ptr->matrix);
     topDownWall(L.ptr ->matrix);
-    Platform P(D.getLevelNumber(),L.ptr->matrix,X,Y);
+    Platform P;
     Bonus B = Bonus (D.getDifficulty());
     B.getChoice(P.PatternChoice( L.ptr -> matrix, X, Y ), L.ptr -> matrix, X, Y);
     printMap( L.ptr ->matrix );
@@ -196,7 +196,7 @@ void World::gameover() {
     D.printScore();
     cout << "\t\t";
     D.printLevelNumber();
-    cout << endl << endl << "Premere x per uscire." << endl;
+    cout << endl << endl << "Premere X per uscire." << endl;
     while( getch() != 'x' )
     M.ExitMenu();
 }

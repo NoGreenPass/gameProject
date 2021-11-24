@@ -3,7 +3,7 @@
 
 class Platform{
     public:
-        Platform( int,  char [][40], const int, const int ); // assegna intero casuale al dato membro casualPattern
+        Platform(); // assegna intero casuale al dato membro casualPattern
 
         // Funzione membro pattern carica nella matrice le strutture del pattern specifico
         void Pattern1( char [][40], const int, const int );
