@@ -10,8 +10,8 @@ class Bonus{
         void BonusPattern4 (char [][40], const int, const int);
         char BonusChoice (); 
         int BonusPatternChoice (int, char [][40], const int, const int);
-        int getPoints ();
-        int getHealth ();
+        int getPoints();
+        int getHealth();
     protected:
         int casualBonus;
         int pointsEarned;

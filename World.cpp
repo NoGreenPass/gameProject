@@ -10,50 +10,57 @@ World::World() {
 void World::startGame() {
     system("cls");
     createAndPrintFirstLevel();
-    int key;
-    while( (key = _getch()) != 'x' && D.getLifePoints() > 0 ){
-        SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {0,0});
-        switch( key ){
-            case 'A':
-            case 'a':
-                if( H.getColumnPosition() != 1 ){
+    bool exit;
+    while( D.getLifePoints() > 0 && !exit ){
+        if( _kbhit() ){
+            char keyPressed = _getch();
+            SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {0,0});
+            switch( keyPressed ){
+                case 'A':
+                case 'a':
+                    if( H.getColumnPosition() != 1 ){
+                        printMap( L.ptr -> matrix );
+                        H.heroOnScreen();
+                        userPressA();
+                    } else if( D.getLevelNumber() > 1) changeNode(0);
+                    break; 
+                case 'D':
+                case 'd': 
+                    if( H.getColumnPosition() != 39 ){
+                        printMap( L.ptr -> matrix );
+                        H.heroOnScreen();
+                        userPressD();
+                    }else{ 
+                        if(D.getLevelNumber() == counterNode ) addNode();
+                        else changeNode(1);
+                    }
+                    break;
+                case 'W':
+                case 'w':
                     printMap( L.ptr -> matrix );
                     H.heroOnScreen();
-                    userPressA();
-                } else if( D.getLevelNumber() > 1) changeNode(0);
-                break; 
-            case 'D':
-            case 'd': 
-                if( H.getColumnPosition() != 39 ){
+                    userPressW();
+                    break;
+                case 'S':
+                case 's':
                     printMap( L.ptr -> matrix );
                     H.heroOnScreen();
-                    userPressD();
-                }else{ 
-                    if(D.getLevelNumber() == counterNode ) addNode();
-                    else changeNode(1);
-                }
-                break;
-            case 'W':
-            case 'w':
-                printMap( L.ptr -> matrix );
-                H.heroOnScreen();
-                userPressW();
-                break;
-            case 'S':
-            case 's':
-                printMap( L.ptr -> matrix );
-                H.heroOnScreen();
-                userPressS();
-                break; 
-            default: 
-                break;
+                    userPressS();
+                    break; 
+                case 'X':
+                case 'x':
+                    exit = true;
+                    break;
+                default: 
+                    break;
+            }
         }
     }
     gameover();
 }
 
 void World::userPressA(){
-    if( L.ptr -> matrix[H.getRowPosition()][H.getColumnPosition() - 1] != '=' )
+    if( L.ptr -> matrix[H. getRowPosition()][H.getColumnPosition() - 1] != '=' )
         if( L.ptr -> matrix[H.getRowPosition()+1][H.getColumnPosition()-1] == '=' )
             H.isMovingLeft();
     // TODO: Aggiungere casi in cui hero entra in contatto con nemici o bonus
