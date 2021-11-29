@@ -31,7 +31,9 @@ class World {
         GameData D;
         Menu M;
         /* Bullet B; */
-        Hero H; 
+        Hero H;
+        Bonus B;
+        Enemy E;
     public:
         World();
         void startGame();

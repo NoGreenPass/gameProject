@@ -1,9 +1,7 @@
 #include "Bonus.hpp"
 
-Bonus::Bonus(int diff){
+Bonus::Bonus(){
     srand(time(0));
-    pointsEarned = 100*diff;
-    healthEarned = 10*diff;
 }
 
 void Bonus::BonusPattern1 (char m[][40], const int x, const int y){
@@ -143,10 +141,19 @@ int Bonus::BonusPatternChoice(int pat, char m[][40], const int x, const int y){
     }
 }
 
+void Bonus::BonusUpdate(int diff){
+    pointsEarned = 100*diff;
+    healthEarned = 10*diff;
+}
+
 int Bonus::getPoints(){
     return pointsEarned;
 }
 
 int Bonus::getHealth(){
     return healthEarned;
+}
+
+void Bonus::CancelBonus(char m[][40], const int x, const int y, int a, int b){
+    m[a][b] = ' ';
 }

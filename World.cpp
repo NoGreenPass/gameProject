@@ -10,7 +10,7 @@ World::World() {
 void World::startGame() {
     system("cls");
     createAndPrintFirstLevel();
-    bool exit;
+    bool exit = false;
     while( D.getLifePoints() > 0 && !exit ){
         if( _kbhit() ){
             char keyPressed = _getch();
@@ -60,23 +60,142 @@ void World::startGame() {
 }
 
 void World::userPressA(){
-    if( L.ptr -> matrix[H. getRowPosition()][H.getColumnPosition() - 1] != '=' )
-        if( L.ptr -> matrix[H.getRowPosition()+1][H.getColumnPosition()-1] == '=' )
+    if( L.ptr -> matrix[H.getRowPosition()+1][H.getColumnPosition()-1] == '=' )
+        if( L.ptr -> matrix[H.getRowPosition()][H.getColumnPosition() - 1] != '=' ){
+            switch(L.ptr -> matrix[H.getRowPosition()][H.getColumnPosition() - 1]){
+                case '$':
+                    D.riseScore(B.getPoints());
+                    B.CancelBonus(L.ptr -> matrix, X, Y, H.getRowPosition(), H.getColumnPosition() - 1);
+                    D.printData();
+                    break;
+                case '%':
+                    D.riseLifePoints(B.getHealth());
+                    B.CancelBonus(L.ptr -> matrix, X, Y, H.getRowPosition(), H.getColumnPosition() - 1);
+                    D.printData();
+                    break;
+                case 'O':
+                    D.reduceLifePoints(D.getDifficulty()*5);
+                    E.CancelEnemy(L.ptr -> matrix, X, Y, H.getRowPosition(), H.getColumnPosition() - 1);
+                    D.printData();
+                    break;
+                case 'N':
+                    D.reduceLifePoints(D.getDifficulty()*10);
+                    E.CancelEnemy(L.ptr -> matrix, X, Y, H.getRowPosition(), H.getColumnPosition() - 1);
+                    D.printData();
+                    break;
+                case 'I':
+                    D.reduceLifePoints(D.getDifficulty()*20);
+                    E.CancelEnemy(L.ptr -> matrix, X, Y, H.getRowPosition(), H.getColumnPosition() - 1);
+                    D.printData();
+                    break;
+                default:
+                    break;
+            }
             H.isMovingLeft();
-    // TODO: Aggiungere casi in cui hero entra in contatto con nemici o bonus
+        }
 }
 
 void World::userPressD(){
-    if( L.ptr -> matrix[H.getRowPosition()][H.getColumnPosition() + 1] != '=' &&  L.ptr -> matrix[H.getRowPosition()+1][H.getColumnPosition()+1] == '=' )
-        H.isMovingRight();
-    // TODO: Aggiungere casi in cui hero entra in contatto con nemici o bonus
+    if( L.ptr -> matrix[H.getRowPosition()+1][H.getColumnPosition()+1] == '=' )
+        if( L.ptr -> matrix[H.getRowPosition()][H.getColumnPosition() + 1] != '=' ){
+            switch(L.ptr -> matrix[H.getRowPosition()][H.getColumnPosition() + 1]){
+                case '$':
+                    D.riseScore(B.getPoints());
+                    B.CancelBonus(L.ptr -> matrix, X, Y, H.getRowPosition(), H.getColumnPosition() + 1);
+                    D.printData();
+                    break;
+                case '%':
+                    D.riseLifePoints(B.getHealth());
+                    B.CancelBonus(L.ptr -> matrix, X, Y, H.getRowPosition(), H.getColumnPosition() + 1);
+                    D.printData();
+                    break;
+                case 'O':
+                    D.reduceLifePoints(D.getDifficulty()*5);
+                    E.CancelEnemy(L.ptr -> matrix, X, Y, H.getRowPosition(), H.getColumnPosition() + 1);
+                    D.printData();
+                    break;
+                case 'N':
+                    D.reduceLifePoints(D.getDifficulty()*10);
+                    E.CancelEnemy(L.ptr -> matrix, X, Y, H.getRowPosition(), H.getColumnPosition() + 1);
+                    D.printData();
+                    break;
+                case 'I':
+                    D.reduceLifePoints(D.getDifficulty()*20);
+                    E.CancelEnemy(L.ptr -> matrix, X, Y, H.getRowPosition(), H.getColumnPosition() + 1);
+                    D.printData();
+                    break;
+                default:
+                    break;
+            }
+            H.isMovingRight();
+        }
 }
 
 void World::userPressW(){ 
-    if(  H.getColumnPosition() != 39 && L.ptr -> matrix[H.getRowPosition()][H.getColumnPosition() + 1] == '=')
+    if(  H.getColumnPosition() != 39 && L.ptr -> matrix[H.getRowPosition()][H.getColumnPosition() + 1] == '='){
+        switch(L.ptr -> matrix[H.getRowPosition() - 1][H.getColumnPosition() + 1]){
+                case '$':
+                    D.riseScore(B.getPoints());
+                    B.CancelBonus(L.ptr -> matrix, X, Y, H.getRowPosition() - 1, H.getColumnPosition() + 1);
+                    D.printData();
+                    break;
+                case '%':
+                    D.riseLifePoints(B.getHealth());
+                    B.CancelBonus(L.ptr -> matrix, X, Y, H.getRowPosition() - 1, H.getColumnPosition() + 1);
+                    D.printData();
+                    break;
+                case 'O':
+                    D.reduceLifePoints(D.getDifficulty()*5);
+                    E.CancelEnemy(L.ptr -> matrix, X, Y, H.getRowPosition() - 1, H.getColumnPosition() + 1);
+                    D.printData();
+                    break;
+                case 'N':
+                    D.reduceLifePoints(D.getDifficulty()*10);
+                    E.CancelEnemy(L.ptr -> matrix, X, Y, H.getRowPosition() - 1, H.getColumnPosition() + 1);
+                    D.printData();
+                    break;
+                case 'I':
+                    D.reduceLifePoints(D.getDifficulty()*20);
+                    E.CancelEnemy(L.ptr -> matrix, X, Y, H.getRowPosition() - 1, H.getColumnPosition() + 1);
+                    D.printData();
+                    break;
+                default:
+                    break;
+            }
         H.isMovingUp(1);
-    else if( H.getColumnPosition() != 1 &&  L.ptr -> matrix[H.getRowPosition()][H.getColumnPosition() - 1] == '=')
+    }
+    else if( H.getColumnPosition() != 1 &&  L.ptr -> matrix[H.getRowPosition()][H.getColumnPosition() - 1] == '='){
+            switch(L.ptr -> matrix[H.getRowPosition() + 1][H.getColumnPosition() + 1]){
+                case '$':
+                    D.riseScore(B.getPoints());
+                    B.CancelBonus(L.ptr -> matrix, X, Y, H.getRowPosition() + 1, H.getColumnPosition() + 1);
+                    D.printData();
+                    break;
+                case '%':
+                    D.riseLifePoints(B.getHealth());
+                    B.CancelBonus(L.ptr -> matrix, X, Y, H.getRowPosition() + 1, H.getColumnPosition() + 1);
+                    D.printData();
+                    break;
+                case 'O':
+                    D.reduceLifePoints(D.getDifficulty()*5);
+                    E.CancelEnemy(L.ptr -> matrix, X, Y, H.getRowPosition() + 1, H.getColumnPosition() + 1);
+                    D.printData();
+                    break;
+                case 'N':
+                    D.reduceLifePoints(D.getDifficulty()*10);
+                    E.CancelEnemy(L.ptr -> matrix, X, Y, H.getRowPosition() + 1, H.getColumnPosition() + 1);
+                    D.printData();
+                    break;
+                case 'I':
+                    D.reduceLifePoints(D.getDifficulty()*20);
+                    E.CancelEnemy(L.ptr -> matrix, X, Y, H.getRowPosition() + 1, H.getColumnPosition() + 1);
+                    D.printData();
+                    break;
+                default:
+                    break;
+            }
         H.isMovingUp(0);
+    }
 }
 
 void World::userPressS(){
@@ -115,9 +234,9 @@ void World::createAndPrintFirstLevel(){
     leftWall( L.ptr ->matrix );
     topDownWall( L.ptr ->matrix );
     Platform P;
-    Bonus B = Bonus (D.getDifficulty());
-    Enemy E = Enemy( D.getDifficulty() );
-    E.EnemyPatternChoice( B.BonusPatternChoice(P.PatternChoice( L.ptr -> matrix, X, Y ), L.ptr -> matrix, X, Y),  L.ptr -> matrix, X, Y );
+    B.BonusUpdate(D.getDifficulty());
+    E.EnemyUpdate(D.getDifficulty());
+    E.EnemyPatternChoice(B.BonusPatternChoice(P.PatternChoice( L.ptr -> matrix, X, Y ), L.ptr -> matrix, X, Y),  L.ptr -> matrix, X, Y);
     printMap( L.ptr ->matrix );
     H.setHeroPosition( 18,1 );
     H.heroOnScreen();
@@ -138,9 +257,9 @@ void World::addNode() {
     addEmptySpace(L.ptr->matrix);
     topDownWall(L.ptr ->matrix);
     Platform P;
-    Bonus B = Bonus (D.getDifficulty());
-    Enemy E = Enemy( D.getDifficulty() );
-    E.EnemyPatternChoice( B.BonusPatternChoice(P.PatternChoice( L.ptr -> matrix, X, Y ), L.ptr -> matrix, X, Y),  L.ptr -> matrix, X, Y );
+    B.BonusUpdate(D.getDifficulty());
+    E.EnemyUpdate(D.getDifficulty());
+    E.EnemyPatternChoice(B.BonusPatternChoice(P.PatternChoice( L.ptr -> matrix, X, Y ), L.ptr -> matrix, X, Y),  L.ptr -> matrix, X, Y);
     B.BonusPatternChoice(P.PatternChoice( L.ptr -> matrix, X, Y ), L.ptr -> matrix, X, Y);
     printMap( L.ptr ->matrix );
     H.setHeroPosition( 18,1 );
