@@ -31,7 +31,8 @@ void GameData::printData(){
     cout << "Name: ";
     printName();
     SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {45,5});
-    cout << "Life: " << lifePoints;
+    if( lifePoints < 100 ) cout << "Life:  " << lifePoints; 
+    else cout << "Life: " << lifePoints;
     SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {45,6});
     cout << "Points: " << score;
     SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {45,7});
@@ -60,9 +61,7 @@ void GameData::reduceLifePoints( int lp ){
 void GameData::riseScore( int s ){
     score = score + s;
 }
-void GameData::reduceScore(int s ){
-    score = score - s;
-}
+
 
 void GameData::printScore(){
     cout << score;

@@ -20,7 +20,6 @@ class GameData{
         void reduceLifePoints( int ); // Diminuisce i punti vita ( sotto opportune condizioni )
 
         void riseScore( int ); // Incrementa il punteggio ( sotto opportune condizioni )
-        void reduceScore( int ); // Diminuisce il punteggio ( sotto opprtune condizioni )
         void printScore();
      
         void printDifficulty(); // Stampa il livello di difficolta' ( vista utente )
