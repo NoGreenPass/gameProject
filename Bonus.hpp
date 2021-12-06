@@ -4,16 +4,17 @@
 class Bonus{
     public:
         Bonus();
-        void BonusPattern1 (char [][40], const int, const int);
-        void BonusPattern2 (char [][40], const int, const int);
-        void BonusPattern3 (char [][40], const int, const int);
-        void BonusPattern4 (char [][40], const int, const int);
-        char BonusChoice (); 
-        int BonusPatternChoice (int, char [][40], const int, const int);
-        void BonusUpdate (int);
+        void bonusPattern1 (char [][40], const int, const int);
+        void bonusPattern2 (char [][40], const int, const int);
+        void bonusPattern3 (char [][40], const int, const int);
+        void bonusPattern4 (char [][40], const int, const int);
+        void bonusPattern5 (char [][40], const int, const int);
+        char bonusChoice (); 
+        int bonusPatternChoice (int, char [][40], const int, const int);
+        void bonusUpdate (int);
         int getPoints ();
         int getHealth ();
-        void CancelBonus (char [][40], const int, const int, int, int);
+        void cancelBonus (char [][40], const int, const int, int, int);
     protected:
         int casualBonus;
         int pointsEarned;

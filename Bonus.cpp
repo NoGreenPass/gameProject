@@ -4,23 +4,23 @@ Bonus::Bonus(){
     srand(time(0));
 }
 
-void Bonus::BonusPattern1 (char m[][40], const int x, const int y){
-    m[14][16] = BonusChoice();
+void Bonus::bonusPattern1 (char m[][40], const int x, const int y){
+    m[14][19] = bonusChoice();
 }
 
-void Bonus::BonusPattern2 (char m[][40], const int x, const int y){
+void Bonus::bonusPattern2 (char m[][40], const int x, const int y){
     if(pointsEarned/100 == 1){
         casualBonus = 1 + rand() % 3;
         switch (casualBonus)
         {
         case 1:
-            m[15][1] = BonusChoice();
+            m[15][1] = bonusChoice();
             break;
         case 2:
-            m[13][38] = BonusChoice();
+            m[13][38] = bonusChoice();
             break;
         case 3:
-            m[12][22] = BonusChoice();
+            m[12][22] = bonusChoice();
         default:
             break;
         }
@@ -30,44 +30,83 @@ void Bonus::BonusPattern2 (char m[][40], const int x, const int y){
             switch (casualBonus)
             {
             case 1:
-                m[13][38] = BonusChoice();
-                m[15][1] = BonusChoice();
+                m[13][38] = bonusChoice();
+                m[15][1] = bonusChoice();
                 break;
             case 2:
-                m[12][22] = BonusChoice();
-                m[13][38] = BonusChoice();
+                m[12][22] = bonusChoice();
+                m[13][38] = bonusChoice();
                 break;
             case 3:
-                m[12][22] = BonusChoice();
-                m[15][1] = BonusChoice();
+                m[12][22] = bonusChoice();
+                m[15][1] = bonusChoice();
             default:
                 break;
             }
         }else{
-            m[12][22] = BonusChoice();
-            m[13][38] = BonusChoice();
-            m[15][1] = BonusChoice();
+            m[12][22] = bonusChoice();
+            m[13][38] = bonusChoice();
+            m[15][1] = bonusChoice();
         }
     }
 }
 
-void Bonus::BonusPattern3 (char m[][40], const int x, const int y){
-    m[16][14] = BonusChoice();
+void Bonus::bonusPattern3 (char m[][40], const int x, const int y){
+    if(pointsEarned/100 == 1){
+        casualBonus = 1 + rand() % 3;
+        switch (casualBonus)
+        {
+        case 1:
+            m[15][5] = bonusChoice();
+            break;
+        case 2:
+            m[16][14] = bonusChoice();
+            break;
+        case 3:
+            m[16][33] = bonusChoice();
+        default:
+            break;
+        }
+    }else{
+        if(pointsEarned/100 == 2){
+            casualBonus = 1 + rand() % 3;
+            switch (casualBonus)
+            {
+            case 1:
+                m[15][5] = bonusChoice();
+                m[16][14] = bonusChoice();
+                break;
+            case 2:
+                m[16][14] = bonusChoice();
+                m[16][33] = bonusChoice();
+                break;
+            case 3:
+                m[15][5] = bonusChoice();
+                m[16][33] = bonusChoice();
+            default:
+                break;
+            }
+        }else{
+            m[15][5] = bonusChoice();
+            m[16][14] = bonusChoice();
+            m[16][33] = bonusChoice();
+        }
+    }
 }
 
-void Bonus::BonusPattern4 (char m[][40], const int x, const int y){
+void Bonus::bonusPattern4 (char m[][40], const int x, const int y){
     if(pointsEarned/100 < 5){
         casualBonus = 1 + rand() % 3;
         switch (casualBonus)
         {
         case 1:
-            m[10][35] = BonusChoice();
+            m[10][35] = bonusChoice();
             break;
         case 2:
-            m[14][8] = BonusChoice();
+            m[14][8] = bonusChoice();
             break;
         case 3:
-            m[7][20] = BonusChoice();
+            m[7][20] = bonusChoice();
         default:
             break;
         }
@@ -77,28 +116,71 @@ void Bonus::BonusPattern4 (char m[][40], const int x, const int y){
             switch (casualBonus)
             {
             case 1:
-                m[10][35] = BonusChoice();
-                m[14][8] = BonusChoice();
+                m[10][35] = bonusChoice();
+                m[14][8] = bonusChoice();
                 break;
             case 2:
-                m[7][20] = BonusChoice();
-                m[14][8] = BonusChoice();
+                m[7][20] = bonusChoice();
+                m[14][8] = bonusChoice();
                 break;
             case 3:
-                m[7][20] = BonusChoice();
-                m[10][35] = BonusChoice();
+                m[7][20] = bonusChoice();
+                m[10][35] = bonusChoice();
             default:
                 break;
             }
         }else{
-            m[7][20] = BonusChoice();    
-            m[10][35] = BonusChoice();
-            m[14][8] = BonusChoice();
+            m[7][20] = bonusChoice();    
+            m[10][35] = bonusChoice();
+            m[14][8] = bonusChoice();
         }
     }   
 }
 
-char Bonus::BonusChoice(){
+void Bonus::bonusPattern5 (char m[][40], const int x, const int y){
+    if(pointsEarned/100 < 5){
+        casualBonus = 1 + rand() % 3;
+        switch (casualBonus)
+        {
+        case 1:
+            m[15][32] = bonusChoice();
+            break;
+        case 2:
+            m[12][11] = bonusChoice();
+            break;
+        case 3:
+            m[12][35] = bonusChoice();
+        default:
+            break;
+        }
+    }else{
+        if(pointsEarned/100 < 10){
+            casualBonus = 1 + rand() % 3;
+            switch (casualBonus)
+            {
+            case 1:
+                m[15][32] = bonusChoice();
+                m[12][11] = bonusChoice();
+                break;
+            case 2:
+                m[12][11] = bonusChoice();
+                m[12][35] = bonusChoice();
+                break;
+            case 3:
+                m[15][32] = bonusChoice();
+                m[12][35] = bonusChoice();
+            default:
+                break;
+            }
+        }else{
+            m[15][32] = bonusChoice();    
+            m[12][11] = bonusChoice();
+            m[12][35] = bonusChoice();
+        }
+    }
+}   
+
+char Bonus::bonusChoice(){
     casualBonus = 1 + rand() % 2;
     switch(casualBonus){
         case 1:
@@ -117,23 +199,27 @@ char Bonus::BonusChoice(){
     }
 }
 
-int Bonus::BonusPatternChoice(int pat, char m[][40], const int x, const int y){
+int Bonus::bonusPatternChoice(int pat, char m[][40], const int x, const int y){
     switch(pat){
         case 1:
-            BonusPattern1(m, 20, 40);
+            bonusPattern1(m, 20, 40);
             return 1;
             break;
         case 2:
-            BonusPattern2(m, 20, 40);
+            bonusPattern2(m, 20, 40);
             return 2;
             break;
         case 3:
-            BonusPattern3(m, 20, 40);
+            bonusPattern3(m, 20, 40);
             return 3;
             break;
         case 4:
-            BonusPattern4(m, 20, 40);
+            bonusPattern4(m, 20, 40);
             return 4;
+            break;
+        case 5:
+            bonusPattern5(m, 20, 40);
+            return 5;
             break;
         default:
             return 0;
@@ -141,7 +227,7 @@ int Bonus::BonusPatternChoice(int pat, char m[][40], const int x, const int y){
     }
 }
 
-void Bonus::BonusUpdate(int diff){
+void Bonus::bonusUpdate(int diff){
     pointsEarned = 100*diff;
     healthEarned = 10*diff;
 }
@@ -154,6 +240,6 @@ int Bonus::getHealth(){
     return healthEarned;
 }
 
-void Bonus::CancelBonus(char m[][40], const int x, const int y, int a, int b){
+void Bonus::cancelBonus(char m[][40], const int x, const int y, int a, int b){
     m[a][b] = ' ';
 }
