@@ -6,26 +6,25 @@ Enemy::Enemy(){
 
 void Enemy::EnemyIsMoving(){}   /* to do: sviluppare il movimento del nemico */
 
-void Enemy::EnemyPattern1(char m[][40], const int x, const int y){
+void Enemy::EnemyPattern1(char m[][40], const int x, const int y){ 
     if(health == 1){
-        casualEnemy = 1 + rand() % 4;
+        casualEnemy = 1 + rand() % 3;
         switch (casualEnemy)
         {
         case 1:
+            m[16][15] = EnemyChoice();
             m[17][12] = EnemyChoice();
             m[18][35] = EnemyChoice();
             break;
         case 2:
-            m[15][15]= EnemyChoice();
+            m[15][17]= EnemyChoice();
             m[18][6] = EnemyChoice();
+            m[18][27]= EnemyChoice();
             break;
         case 3:
-            m[16][14] = EnemyChoice();
-            m[17][31] = EnemyChoice();
-            break;
-        case 4:
             m[16][27] = EnemyChoice();
-            m[18][20] = EnemyChoice();
+            m[17][31] = EnemyChoice();
+            m[18][17] = EnemyChoice();
             break;
         default:
             break;
@@ -36,30 +35,41 @@ void Enemy::EnemyPattern1(char m[][40], const int x, const int y){
             switch (casualEnemy)
             {
             case 1:
-                m[15][15] = EnemyChoice();
-                m[17][31] = EnemyChoice();
+                m[15][17]= EnemyChoice();
+                m[16][15] = EnemyChoice();
+                m[17][12] = EnemyChoice();
                 m[18][6] = EnemyChoice();
+                m[18][27]= EnemyChoice();
+                m[18][35] = EnemyChoice();
                 break;
             case 2:
+                m[15][17]= EnemyChoice();
                 m[16][27] = EnemyChoice();
-                m[17][12] = EnemyChoice();
-                m[18][20] = EnemyChoice();
+                m[17][31] = EnemyChoice();
+                m[18][6] = EnemyChoice();
+                m[18][17] = EnemyChoice();
+                m[18][27]= EnemyChoice();
                 break;
             case 3:
-                m[16][14] = EnemyChoice();
+                m[16][15] = EnemyChoice();
+                m[16][27] = EnemyChoice();
+                m[17][12] = EnemyChoice();
+                m[17][31] = EnemyChoice();
+                m[18][17] = EnemyChoice();
                 m[18][35] = EnemyChoice();
                 break;
             default:
                 break;
             }
         }else{
-            m[15][15]= EnemyChoice();
-            m[16][14] = EnemyChoice();
+            m[15][17]= EnemyChoice();
+            m[16][15] = EnemyChoice();
             m[16][27] = EnemyChoice();
             m[17][12] = EnemyChoice();
             m[17][31] = EnemyChoice();
             m[18][6] = EnemyChoice();
-            m[18][20] = EnemyChoice();
+            m[18][17] = EnemyChoice();
+            m[18][27] = EnemyChoice();
             m[18][35] = EnemyChoice();
         }
     }
@@ -145,11 +155,13 @@ void Enemy::EnemyPattern3 (char m[][40], const int x, const int y){
             m[18][36] = EnemyChoice();
             break;
         case 2:
+            m[16][26] = EnemyChoice();
             m[17][22] = EnemyChoice();
             m[18][8] = EnemyChoice();
             break;
         case 3:
-            m[17][11] = EnemyChoice();
+            m[15][30] = EnemyChoice();
+            m[16][9] = EnemyChoice();
             m[18][28] = EnemyChoice();
             break;
         default:
@@ -162,28 +174,34 @@ void Enemy::EnemyPattern3 (char m[][40], const int x, const int y){
             {
                 case 1:
                     m[16][17] = EnemyChoice();
+                    m[16][26] = EnemyChoice();
                     m[17][22] = EnemyChoice();
                     m[18][4] = EnemyChoice();
                     m[18][8] = EnemyChoice();
                     m[18][36] = EnemyChoice();
                     break;
                 case 2:
-                    m[17][11] = EnemyChoice();
+                    m[15][30] = EnemyChoice();
+                    m[16][9] = EnemyChoice();
+                    m[16][26] = EnemyChoice();
                     m[17][22] = EnemyChoice();
                     m[18][8] = EnemyChoice();
                     m[18][28] = EnemyChoice();
                     break;
                 case 3:
+                    m[15][30] = EnemyChoice();
+                    m[16][9] = EnemyChoice();
                     m[16][17] = EnemyChoice();
-                    m[17][11] = EnemyChoice();
                     m[18][4] = EnemyChoice();
                     m[18][28] = EnemyChoice();
                     m[18][36] = EnemyChoice();
                     break;
             }
         }else{
+            m[15][30] = EnemyChoice();
+            m[16][9] = EnemyChoice();
             m[16][17] = EnemyChoice();
-            m[17][11] = EnemyChoice();
+            m[16][26] = EnemyChoice();
             m[17][22] = EnemyChoice();
             m[18][4] = EnemyChoice();
             m[18][8] = EnemyChoice();
@@ -200,7 +218,6 @@ void Enemy::EnemyPattern4 (char m[][40], const int x, const int y){
         {
         case 1:
             m[9][15] = EnemyChoice();
-            m[10][31] = EnemyChoice();
             m[13][11] = EnemyChoice();
             m[18][14] = EnemyChoice();
             break;
@@ -211,7 +228,7 @@ void Enemy::EnemyPattern4 (char m[][40], const int x, const int y){
             break;
         case 3:
             m[9][26] = EnemyChoice();
-            m[10][19] = EnemyChoice();
+            m[10][31] = EnemyChoice();
             m[17][5] = EnemyChoice();
             break;
         default:
@@ -224,7 +241,6 @@ void Enemy::EnemyPattern4 (char m[][40], const int x, const int y){
             {
             case 1:
                 m[9][15] = EnemyChoice();
-                m[10][31] = EnemyChoice();
                 m[12][16] = EnemyChoice();
                 m[13][11] = EnemyChoice();
                 m[15][11] = EnemyChoice();
@@ -233,7 +249,7 @@ void Enemy::EnemyPattern4 (char m[][40], const int x, const int y){
                 break;
             case 2:
                 m[9][26] = EnemyChoice();
-                m[10][19] = EnemyChoice();
+                m[10][31] = EnemyChoice();
                 m[12][16] = EnemyChoice();
                 m[15][11] = EnemyChoice();
                 m[17][5] = EnemyChoice();
@@ -242,7 +258,6 @@ void Enemy::EnemyPattern4 (char m[][40], const int x, const int y){
             case 3:
                 m[9][15] = EnemyChoice();
                 m[9][26] = EnemyChoice();
-                m[10][19] = EnemyChoice();
                 m[10][31] = EnemyChoice();
                 m[13][11] = EnemyChoice();
                 m[17][5] = EnemyChoice();
@@ -254,7 +269,6 @@ void Enemy::EnemyPattern4 (char m[][40], const int x, const int y){
     }else{
         m[9][15] = EnemyChoice();
         m[9][26] = EnemyChoice();
-        m[10][19] = EnemyChoice();
         m[10][31] = EnemyChoice();
         m[12][16] = EnemyChoice();
         m[13][11] = EnemyChoice();
@@ -262,6 +276,73 @@ void Enemy::EnemyPattern4 (char m[][40], const int x, const int y){
         m[17][5] = EnemyChoice();
         m[18][14] = EnemyChoice();
         m[18][27] = EnemyChoice();
+        }
+    }
+}
+
+void Enemy::EnemyPattern5 (char m[][40], const int x, const int y){
+    if(health == 1){
+        casualEnemy = 1 + rand() % 3;
+        switch (casualEnemy)
+        {
+        case 1:
+            m[14][12] = EnemyChoice();
+            m[16][25] = EnemyChoice();
+            m[18][4] = EnemyChoice();
+            break;
+        case 2:
+            m[13][32] = EnemyChoice();
+            m[16][4] = EnemyChoice();
+            m[18][15] = EnemyChoice();
+            break;
+        case 3:
+            m[13][15] = EnemyChoice();
+            m[16][30] = EnemyChoice();
+            m[17][22] = EnemyChoice();
+            break;
+        default:
+            break;
+        }
+    }else{
+        if(health == 2){
+            casualEnemy = 1 + rand() % 3;
+            switch (casualEnemy)
+            {
+                case 1:
+                    m[13][32] = EnemyChoice();
+                    m[14][12] = EnemyChoice();
+                    m[16][4] = EnemyChoice();
+                    m[16][25] = EnemyChoice();
+                    m[18][4] = EnemyChoice();
+                    m[18][15] = EnemyChoice();
+                    break;
+                case 2:
+                    m[13][15] = EnemyChoice();
+                    m[13][32] = EnemyChoice();
+                    m[16][4] = EnemyChoice();
+                    m[16][30] = EnemyChoice();
+                    m[17][22] = EnemyChoice();
+                    m[18][15] = EnemyChoice();
+                    break;
+                case 3:
+                    m[13][15] = EnemyChoice();
+                    m[14][12] = EnemyChoice();
+                    m[16][25] = EnemyChoice();
+                    m[16][30] = EnemyChoice();
+                    m[17][22] = EnemyChoice();
+                    m[18][4] = EnemyChoice();
+                    break;
+            }
+        }else{
+            m[13][15] = EnemyChoice();
+            m[13][32] = EnemyChoice();
+            m[14][12] = EnemyChoice();
+            m[16][4] = EnemyChoice();
+            m[16][25] = EnemyChoice();
+            m[16][30] = EnemyChoice();
+            m[17][22] = EnemyChoice();
+            m[18][4] = EnemyChoice();
+            m[18][15] = EnemyChoice();
         }
     }
 }
@@ -302,6 +383,9 @@ void Enemy::EnemyPatternChoice(int bon, char m[][40], const int x, const int y){
         break;
     case 4:
         EnemyPattern4(m, 20, 40);
+        break;
+    case 5:
+        EnemyPattern5(m, 20, 40);
         break;
     default:
         break;

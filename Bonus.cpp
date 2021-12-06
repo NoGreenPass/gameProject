@@ -199,30 +199,24 @@ char Bonus::bonusChoice(){
     }
 }
 
-int Bonus::bonusPatternChoice(int pat, char m[][40], const int x, const int y){
+void Bonus::bonusPatternChoice(int pat, char m[][40], const int x, const int y){
     switch(pat){
         case 1:
             bonusPattern1(m, 20, 40);
-            return 1;
             break;
         case 2:
             bonusPattern2(m, 20, 40);
-            return 2;
             break;
         case 3:
             bonusPattern3(m, 20, 40);
-            return 3;
             break;
         case 4:
             bonusPattern4(m, 20, 40);
-            return 4;
             break;
         case 5:
             bonusPattern5(m, 20, 40);
-            return 5;
             break;
         default:
-            return 0;
             break;
     }
 }

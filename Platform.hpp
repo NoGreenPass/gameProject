@@ -11,7 +11,9 @@ class Platform{
         void Pattern3( char [][40], const int, const int );
         void Pattern4( char [][40], const int, const int );
         void Pattern5( char [][40], const int, const int );
-        int patternChoice(  char [][40], const int, const int ); // Sceglie tra i pattern quale caricare sulla matrice tramite valore casuale
-     protected:
+        void patternChoice(  char [][40], const int, const int ); // Sceglie tra i pattern quale caricare sulla matrice tramite valore casuale
+        int getPlatformNumber();
+    protected:
         int casualPattern; // Variabile intera casuale che determina il pattern di superfici da stampare
+        int platformNumber;
 };

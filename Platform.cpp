@@ -180,30 +180,33 @@ void Platform::Pattern5(char m[][40], const int x, const int y){
     }
 }
 
-int Platform::patternChoice( char m[][40], const int x, const int y ){
+void Platform::patternChoice( char m[][40], const int x, const int y ){
     switch(casualPattern){
         case 1:
             Pattern1( m, x, y );
-            return 1;
+            platformNumber = 1;
             break;
         case 2:
             Pattern2( m, x, y );
-            return 2;
+            platformNumber = 2;
             break;
         case 3:
             Pattern3( m, x, y );
-            return 3;
+            platformNumber = 3;
             break;
         case 4:
             Pattern4( m, x, y );
-            return 4;
+            platformNumber = 4;
             break;
         case 5:
             Pattern5( m, x, y );
-            return 5;
+            platformNumber = 5;
             break;
         default:
-            return 0;
             break;
     }
+}
+
+int Platform::getPlatformNumber(){
+    return platformNumber;
 }

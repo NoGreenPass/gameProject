@@ -10,7 +10,7 @@ class Bonus{
         void bonusPattern4 (char [][40], const int, const int);
         void bonusPattern5 (char [][40], const int, const int);
         char bonusChoice (); 
-        int bonusPatternChoice (int, char [][40], const int, const int);
+        void bonusPatternChoice (int, char [][40], const int, const int);
         void bonusUpdate (int);
         int getPoints ();
         int getHealth ();

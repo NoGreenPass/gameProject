@@ -220,9 +220,9 @@ void World::createAndPrintFirstLevel(){
     Platform P;
     B.bonusUpdate(D.getDifficulty());
     E.EnemyUpdate(D.getDifficulty());
-    int platformNumber = P.patternChoice( L.ptr -> matrix, X, Y );
-    B.bonusPatternChoice( platformNumber,  L.ptr -> matrix, X, Y);
-    E.EnemyPatternChoice( platformNumber, L.ptr -> matrix, X, Y);
+    P.patternChoice( L.ptr -> matrix, X, Y );
+    B.bonusPatternChoice( P.getPlatformNumber(),  L.ptr -> matrix, X, Y);
+    E.EnemyPatternChoice( P.getPlatformNumber(), L.ptr -> matrix, X, Y);
     printMap( L.ptr ->matrix );
     H.setHeroPosition( 18,1 );
     H.heroOnScreen();
@@ -245,9 +245,9 @@ void World::addNode() {
     Platform P;
     B.bonusUpdate(D.getDifficulty());
     E.EnemyUpdate(D.getDifficulty());
-    int platformNumber = P.patternChoice( L.ptr -> matrix, X, Y );
-    B.bonusPatternChoice( platformNumber,  L.ptr -> matrix, X, Y);
-    E.EnemyPatternChoice( platformNumber, L.ptr -> matrix, X, Y);
+    P.patternChoice( L.ptr -> matrix, X, Y );
+    B.bonusPatternChoice( P.getPlatformNumber(),  L.ptr -> matrix, X, Y);
+    E.EnemyPatternChoice( P.getPlatformNumber(), L.ptr -> matrix, X, Y);
     printMap( L.ptr ->matrix );
     H.setHeroPosition( 18,1 );
     H.heroOnScreen();
