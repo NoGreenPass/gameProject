@@ -13,6 +13,7 @@ void World::startGame() {
     bool exit = false;
     while( D.getLifePoints() > 0 && !exit ){
         if( _kbhit() ){
+            E.EnemyIsMoving( L.ptr ->matrix, X, Y );
             char keyPressed = _getch();
             SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {0,0});
             switch( keyPressed ){
@@ -300,9 +301,6 @@ void World::topDownWall(char m[][40]) {
         m[0][i] = '=';
         m[19][i] = '=';
     }
-}
-
-void World::updateData() {
 }
 
 void World::gameover() {

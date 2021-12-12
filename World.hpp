@@ -48,6 +48,5 @@ class World {
         void leftWall(char [][40]); //crea il muro di sinistra
         void topDownWall(char [][40]); //crea i muri sopra e sotto
         void printMap(char [][40]); //stampa la matrice
-        void updateData(); //aggiorna i dati modificati
         void gameover(); //gameover, richiamare il menu per esito finale
 };

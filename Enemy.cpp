@@ -4,10 +4,22 @@ Enemy::Enemy(){
     srand(time(0));
 }
 
-void Enemy::EnemyIsMoving(){}   /* to do: sviluppare il movimento del nemico */
+void Enemy::EnemyIsMoving( char map[][40], const int x, const int y ){
+    for( int i = 0; i <= countEnemy; i++ ){
+        if( enemyArray[i].direction ){
+            map[enemyArray[i].x][enemyArray[i].y-1] = ' ';
+            map[enemyArray[i].x][enemyArray[i].y] = enemyArray[i].skin;
+            enemyArray[i].direction = false;
+        } else{
+            map[enemyArray[i].x][enemyArray[i].y] = ' ';
+            map[enemyArray[i].x][enemyArray[i].y-1] = enemyArray[i].skin;
+            enemyArray[i].direction = true;
+        }
+    }
+} 
 
 void Enemy::EnemyPattern1(char m[][40], const int x, const int y){ 
-    if(health == 1){
+    if(difficulty == 1){
         casualEnemy = 1 + rand() % 3;
         switch (casualEnemy)
         {
@@ -30,7 +42,7 @@ void Enemy::EnemyPattern1(char m[][40], const int x, const int y){
             break;
         }
     }else{
-        if(health == 2){
+        if(difficulty == 2){
             casualEnemy = 1 + rand() % 3;
             switch (casualEnemy)
             {
@@ -76,7 +88,7 @@ void Enemy::EnemyPattern1(char m[][40], const int x, const int y){
 }
 
 void Enemy::EnemyPattern2 (char m[][40], const int x, const int y){
-    if(health == 1){
+    if(difficulty == 1){
         casualEnemy = 1 + rand() % 3;
         switch (casualEnemy)
         {
@@ -99,7 +111,7 @@ void Enemy::EnemyPattern2 (char m[][40], const int x, const int y){
             break;
         }
     }else{
-        if(health == 2){
+        if(difficulty == 2){
             casualEnemy = 1 + rand() % 3;
             switch (casualEnemy)
             {
@@ -145,7 +157,7 @@ void Enemy::EnemyPattern2 (char m[][40], const int x, const int y){
 }
 
 void Enemy::EnemyPattern3 (char m[][40], const int x, const int y){
-    if(health == 1){
+    if(difficulty == 1){
         casualEnemy = 1 + rand() % 3;
         switch (casualEnemy)
         {
@@ -168,7 +180,7 @@ void Enemy::EnemyPattern3 (char m[][40], const int x, const int y){
             break;
         }
     }else{
-        if(health == 2){
+        if(difficulty == 2){
             casualEnemy = 1 + rand() % 3;
             switch (casualEnemy)
             {
@@ -212,7 +224,7 @@ void Enemy::EnemyPattern3 (char m[][40], const int x, const int y){
 }
 
 void Enemy::EnemyPattern4 (char m[][40], const int x, const int y){
-    if(health == 1){
+    if(difficulty == 1){
         casualEnemy = 1 + rand() % 3;
         switch (casualEnemy)
         {
@@ -235,7 +247,7 @@ void Enemy::EnemyPattern4 (char m[][40], const int x, const int y){
             break;
         }
     }else{
-        if(health == 2){
+        if(difficulty == 2){
             casualEnemy = 1 + rand() % 3;
             switch (casualEnemy)
             {
@@ -281,7 +293,7 @@ void Enemy::EnemyPattern4 (char m[][40], const int x, const int y){
 }
 
 void Enemy::EnemyPattern5 (char m[][40], const int x, const int y){
-    if(health == 1){
+    if(difficulty == 1){
         casualEnemy = 1 + rand() % 3;
         switch (casualEnemy)
         {
@@ -304,7 +316,7 @@ void Enemy::EnemyPattern5 (char m[][40], const int x, const int y){
             break;
         }
     }else{
-        if(health == 2){
+        if(difficulty == 2){
             casualEnemy = 1 + rand() % 3;
             switch (casualEnemy)
             {
@@ -352,15 +364,12 @@ char Enemy::EnemyChoice(){
     switch (casualEnemy)
     {
     case 1:
-        health = 50*health;
         return 'O';
         break;
     case 2:
-        health = 30*health;
         return 'N';
         break;
     case 3:
-        health = 10*health;
         return 'I';
         break;
     default:
@@ -369,8 +378,8 @@ char Enemy::EnemyChoice(){
     }
 }
 
-void Enemy::EnemyPatternChoice(int bon, char m[][40], const int x, const int y){
-    switch (bon)
+void Enemy::EnemyPatternChoice(int pn, char m[][40], const int r, const int c){
+    switch (pn)
     {
     case 1:
         EnemyPattern1(m, 20, 40);
@@ -390,12 +399,69 @@ void Enemy::EnemyPatternChoice(int bon, char m[][40], const int x, const int y){
     default:
         break;
     }
+    chargheEnemyArray( m, r, c );
 }
 
 void Enemy::EnemyUpdate(int diff){
-    health = diff;
+    difficulty = diff;
+    setCount();
+}
+
+void Enemy::setCount(){
+    switch (difficulty)
+    {
+    case 1:
+        countEnemy = 3;
+        break;
+    case 2:
+        countEnemy = 6;
+    case 3:
+        countEnemy = 9;
+    default:
+        break;
+    }
 }
 
 void Enemy::CancelEnemy(char m[][40], const int x, const int y, int a, int b){
     m[a][b] = ' ';
+    for( int i = 0; i <= MAX_ENEMY_NUMBER; i++ ){
+        if( enemyArray[i].x == a && enemyArray[i].y == b )
+            enemyArray[i].skin = ' ';
+    }
+}
+
+void Enemy::chargheEnemyArray( char map[][40], const int r, const int c ){
+    int count = 0;
+     for( int i = 0; i < 20; i++ ){
+        for( int j = 0; j < 40; j++ ){
+            if( map[i][j] == 'O' ){
+                enemyArray[count].skin = 'O';
+                enemyArray[count].healt = 3;
+                enemyArray[count].damage = 40;
+                enemyArray[count].range = 1;
+                enemyArray[count].x = i;
+                enemyArray[count].y = j;
+                enemyArray[count].direction = false;
+                count++;
+            }else if( map[i][j] == 'N' ){
+                enemyArray[count].skin = 'N';
+                enemyArray[count].healt = 2;
+                enemyArray[count].damage = 20;
+                enemyArray[count].range = 3;
+                enemyArray[count].x = i;
+                enemyArray[count].y = j;
+                enemyArray[count].direction = false;
+                count++;
+            }else if( map[i][j] == 'I' ){
+                enemyArray[count].skin = 'I';
+                enemyArray[count].healt = 1;
+                enemyArray[count].damage = 10;
+                enemyArray[count].range = 5;
+                enemyArray[count].x = i;
+                enemyArray[count].y = j;
+                enemyArray[count].direction = false;
+                count++;
+            } 
+        }
+    }
 }
