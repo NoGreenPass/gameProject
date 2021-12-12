@@ -12,8 +12,10 @@ void World::startGame() {
     createAndPrintFirstLevel();
     bool exit = false;
     while( D.getLifePoints() > 0 && !exit ){
+        E.EnemyIsMoving( L.ptr ->matrix, X, Y );
+        printMap( L.ptr -> matrix );
+        H.heroOnScreen();
         if( _kbhit() ){
-            E.EnemyIsMoving( L.ptr ->matrix, X, Y );
             char keyPressed = _getch();
             SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {0,0});
             switch( keyPressed ){

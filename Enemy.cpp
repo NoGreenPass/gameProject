@@ -15,6 +15,7 @@ void Enemy::EnemyIsMoving( char map[][40], const int x, const int y ){
             map[enemyArray[i].x][enemyArray[i].y-1] = enemyArray[i].skin;
             enemyArray[i].direction = true;
         }
+        // TODO: Implementare qualche funzione di time out della funzione chiamata "EnemyIsMoving"
     }
 } 
 
