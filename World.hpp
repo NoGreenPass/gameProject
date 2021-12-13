@@ -14,6 +14,7 @@ class World {
      protected:
         struct Map {
             char matrix[X][Y];
+            Enemy E;
             Map *prec;
             Map *next;
         };
@@ -33,7 +34,6 @@ class World {
         /* Bullet B; */
         Hero H;
         Bonus B;
-        Enemy E;
     public:
         World();
         void startGame();

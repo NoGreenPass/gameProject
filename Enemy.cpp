@@ -4,19 +4,32 @@ Enemy::Enemy(){
     srand(time(0));
 }
 
-void Enemy::EnemyIsMoving( char map[][40], const int x, const int y ){
+int Enemy::EnemyIsMoving( char map[][40], const int x, const int y, short heroPositionX, short heroPositionY ){
     for( int i = 0; i <= countEnemy; i++ ){
-        if( enemyArray[i].direction ){
-            map[enemyArray[i].x][enemyArray[i].y-1] = ' ';
-            map[enemyArray[i].x][enemyArray[i].y] = enemyArray[i].skin;
-            enemyArray[i].direction = false;
-        } else{
-            map[enemyArray[i].x][enemyArray[i].y] = ' ';
-            map[enemyArray[i].x][enemyArray[i].y-1] = enemyArray[i].skin;
-            enemyArray[i].direction = true;
+        if( enemyArray[i].death == false ){
+            if( enemyArray[i].direction ){
+                map[enemyArray[i].x][enemyArray[i].y-1] = ' ';
+                map[enemyArray[i].x][enemyArray[i].y] = enemyArray[i].skin;
+                enemyArray[i].direction = false;
+                if( enemyArray[i].x == heroPositionX && enemyArray[i].y == heroPositionY){
+                    enemyArray[i].death = true;
+                    map[enemyArray[i].x][enemyArray[i].y] = ' ';
+                    return i;
+                } 
+            }
+            else{
+                map[enemyArray[i].x][enemyArray[i].y] = ' ';
+                map[enemyArray[i].x][enemyArray[i].y-1] = enemyArray[i].skin;
+                enemyArray[i].direction = true;
+                if( enemyArray[i].x == heroPositionX && (enemyArray[i].y-1) == heroPositionY){
+                    enemyArray[i].death = true;
+                    map[enemyArray[i].x][enemyArray[i].y-1] = ' ';
+                    return i;
+                }
+            }
         }
-        // TODO: Implementare qualche funzione di time out della funzione chiamata "EnemyIsMoving"
     }
+    return -1;
 } 
 
 void Enemy::EnemyPattern1(char m[][40], const int x, const int y){ 
@@ -423,11 +436,11 @@ void Enemy::setCount(){
     }
 }
 
-void Enemy::CancelEnemy(char m[][40], const int x, const int y, int a, int b){
+void Enemy::CancelEnemy(char m[][40], const int x, const int y, short a, short b){
     m[a][b] = ' ';
     for( int i = 0; i <= MAX_ENEMY_NUMBER; i++ ){
         if( enemyArray[i].x == a && enemyArray[i].y == b )
-            enemyArray[i].skin = ' ';
+            enemyArray[i].death = true;
     }
 }
 
@@ -442,6 +455,7 @@ void Enemy::chargheEnemyArray( char map[][40], const int r, const int c ){
                 enemyArray[count].range = 1;
                 enemyArray[count].x = i;
                 enemyArray[count].y = j;
+                enemyArray[count].death = false;
                 enemyArray[count].direction = false;
                 count++;
             }else if( map[i][j] == 'N' ){
@@ -451,6 +465,7 @@ void Enemy::chargheEnemyArray( char map[][40], const int r, const int c ){
                 enemyArray[count].range = 3;
                 enemyArray[count].x = i;
                 enemyArray[count].y = j;
+                enemyArray[count].death = false;
                 enemyArray[count].direction = false;
                 count++;
             }else if( map[i][j] == 'I' ){
@@ -460,6 +475,7 @@ void Enemy::chargheEnemyArray( char map[][40], const int r, const int c ){
                 enemyArray[count].range = 5;
                 enemyArray[count].x = i;
                 enemyArray[count].y = j;
+                enemyArray[count].death = false;
                 enemyArray[count].direction = false;
                 count++;
             } 

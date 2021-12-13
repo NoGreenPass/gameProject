@@ -14,14 +14,15 @@ class Enemy{
                 int healt;
                 int damage;
                 int range;
-                int x;
-                int y;
-                bool direction = false;
+                int x = -1;
+                int y = -1;
+                bool death;
+                bool direction;
             };
-            enemyStats enemyArray[MAX_ENEMY_NUMBER];
         public:
+            enemyStats enemyArray[MAX_ENEMY_NUMBER];
             Enemy();
-            void EnemyIsMoving(char [][40], const int, const int );
+            int EnemyIsMoving(char [][40], const int, const int, short, short );
             void EnemyPattern1(char [][40], const int, const int);
             void EnemyPattern2(char [][40], const int, const int);
             void EnemyPattern3(char [][40], const int, const int);
@@ -31,6 +32,6 @@ class Enemy{
             void EnemyPatternChoice(int, char [][40], const int, const int);
             void EnemyUpdate(int);
             void setCount();
-            void CancelEnemy(char [][40], const int, const int, int, int);
+            void CancelEnemy(char [][40], const int, const int, short, short);
             void chargheEnemyArray( char [][40], const int, const int );
 }; 
