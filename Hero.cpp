@@ -1,7 +1,7 @@
 #include "Hero.hpp"
 
 Hero::Hero(){
-    setHeroPosition( 18, 1 );
+    setHeroPosition( 8, 1 );
 }
 
 void Hero::setHeroPosition( short row, short column ){
@@ -13,10 +13,10 @@ void Hero::setHeroPosition( short row, short column ){
 void Hero::isMovingRight(){
     SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {column,row});
     putch( ' ' );
-    if( column != 39 )
+    if( column != 28 )
         column = column + 1 ;
     else 
-        setHeroPosition( 18,1 );
+        setHeroPosition( 8,1 );
     heroOnScreen();
 }
 

@@ -1,39 +1,39 @@
 #include "Hero.hpp"
-#include "Bonus.hpp"
+#include "BonusType.hpp"
 #include "Menu.hpp"
 #include "GameData.hpp"
-#include "Platform.hpp"
-#include "Enemy.hpp"
+#include "Map.hpp"
+//#include "Platform.hpp"
+//#include "Enemy.hpp"
 
-/* #define X = 20; */
-/* #define Y = 40; */
-const int X = 20;
-const int Y = 40;
+#define X 10 
+#define Y 30 
+#define MAXBONUS 3
+
 
 class World {
      protected:
-        struct Map {
+        struct Pointers {
             char matrix[X][Y];
-            Enemy E;
-            Map *prec;
-            Map *next;
+            Bonus bonusArray[MAXBONUS];
+            Pointers *prec;
+            Pointers *next;
         };
-        typedef Map* ptrMap;
+        typedef Pointers* ptr;
         struct List{
-            ptrMap head;
-            ptrMap tail;
-            ptrMap ptr;
+            ptr head;
+            ptr tail;
+            ptr ptr;
         };
-        ptrMap p = 0;
-        ptrMap q = 0;
-        ptrMap tmp;
+        ptr p = 0;
+        ptr q = 0;
+        ptr tmp;
         int counterNode = 0;
         List L;
         GameData D;
-        Menu M;
+        Menu menu;
         /* Bullet B; */
         Hero H;
-        Bonus B;
     public:
         World();
         void startGame();
@@ -44,9 +44,7 @@ class World {
         void createAndPrintFirstLevel(); 
         void addNode(); //aggiungere un nodo alla lista (ricordarsi di richiamare Platform)
         void changeNode( bool ); //aggiorna il puntatore al nodo corrente (avanti 1 e indietro 0 )
-        void addEmptySpace(char [][40]); //inserisce nella matrice tutti gli spazi vuoti
-        void leftWall(char [][40]); //crea il muro di sinistra
-        void topDownWall(char [][40]); //crea i muri sopra e sotto
-        void printMap(char [][40]); //stampa la matrice
+        void chargeBonus();
+        void printMap(char [][30]); //stampa la matrice
         void gameover(); //gameover, richiamare il menu per esito finale
 };
