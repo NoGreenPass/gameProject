@@ -1,14 +1,14 @@
 #include "Hero.hpp"
 #include "BonusType.hpp"
+#include "EnemyType.hpp"
 #include "Menu.hpp"
 #include "GameData.hpp"
 #include "Map.hpp"
-//#include "Platform.hpp"
-//#include "Enemy.hpp"
 
 #define X 10 
 #define Y 30 
 #define MAXBONUS 3
+#define MAXENEMY 9
 
 
 class World {
@@ -16,6 +16,8 @@ class World {
         struct Pointers {
             char matrix[X][Y];
             Bonus bonusArray[MAXBONUS];
+            Enemy enemyArray[MAXENEMY];
+            int counterEnemy;
             Pointers *prec;
             Pointers *next;
         };
@@ -44,7 +46,8 @@ class World {
         void createAndPrintFirstLevel(); 
         void addNode(); //aggiungere un nodo alla lista (ricordarsi di richiamare Platform)
         void changeNode( bool ); //aggiorna il puntatore al nodo corrente (avanti 1 e indietro 0 )
-        void chargeBonus();
+        void uploadBonus();
+        void uploadEnemy();
         void printMap(char [][30]); //stampa la matrice
         void gameover(); //gameover, richiamare il menu per esito finale
 };

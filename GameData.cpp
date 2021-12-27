@@ -14,7 +14,7 @@ int GameData::getLevelNumber(){
 
 void GameData::riseLevelNumber(){
     levelNumber++;
-    if( levelNumber % 5 == 0 )
+    if( levelNumber % 10 == 0 )
         difficulty++;
 }
 
@@ -68,9 +68,9 @@ void GameData::printScore(){
 }
 
 void GameData::printDifficulty(){
-    if( difficulty >= 1 && difficulty <= 3 ) cout << "Easy";
-    else if( difficulty < 6 ) cout << "Medium";
-         else cout << "Hard"; // *DA AMPLIARE* 
+    if( difficulty == 1 ) cout << "Easy";
+    else if( difficulty == 2 ) cout << "Medium";
+    else cout << "Extreme";
 }
 int  GameData::getDifficulty(){
     return difficulty;
