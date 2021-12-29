@@ -2,6 +2,7 @@
 #include "BonusType.hpp"
 #include "EnemyType.hpp"
 #include "BulletTypeHero.hpp"
+#include "BulletTypeEnemy.hpp"
 #include "Menu.hpp"
 #include "GameData.hpp"
 #include "Map.hpp"
@@ -18,6 +19,7 @@ class World {
             char matrix[X][Y];
             Bonus bonusArray[MAXBONUS];
             Enemy enemyArray[MAXENEMY];
+            BulletTypeEnemy bulletE[MAXENEMY];
             int counterEnemy;
             Pointers *prec;
             Pointers *next;
@@ -37,9 +39,11 @@ class World {
         Menu menu;
         int bulletDirection;
         Hero H;
+        bool exit;
     public:
         World();
         void startGame();
+        void heroKeys();
         void userPressA();
         void userPressD();
         void userPressW();
@@ -49,7 +53,7 @@ class World {
         void changeNode( bool ); //aggiorna il puntatore al nodo corrente (avanti 1 e indietro 0 )
         void uploadBonus();
         void uploadEnemy();
-        void handleBullet();
+        void uploadEnemyBullet();
         void printMap(char [][30]); //stampa la matrice
         void gameover(); //gameover, richiamare il menu per esito finale
 };

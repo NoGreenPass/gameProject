@@ -6,18 +6,6 @@ BulletTypeHero::BulletTypeHero( int x, int y ){
     this->y = y;
 }
 
-int BulletTypeHero::getRange() {
-    return range;
-}
-
-int BulletTypeHero::getX() {
-    return x;
-}
-
-int BulletTypeHero::getY() {
-    return y;
-}
-
 void BulletTypeHero::printBullet() {
     SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {short(y), short(x)});
     putch('-');
@@ -31,12 +19,24 @@ bool BulletTypeHero::stopBullet( char matrix[][30] ) {
     else return false;
 }
 
+void BulletTypeHero::moveBullet( int dir ) {
+    if(dir == 1) y++;
+    else y--;
+}
+
 bool BulletTypeHero::enemyHit( char matrix[][30] ) {
     if( matrix[x][y] == 'N' || matrix[x][y] == 'O' || matrix[x][y] == 'I' ) return true;
     else return false;
 }
 
-void BulletTypeHero::moveBullet( int dir ) {
-    if(dir == 1) y++;
-    else y--;
+int BulletTypeHero::getRange() {
+    return range;
+}
+
+int BulletTypeHero::getX() {
+    return x;
+}
+
+int BulletTypeHero::getY() {
+    return y;
 }

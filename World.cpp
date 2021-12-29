@@ -1,6 +1,7 @@
 #include "World.hpp"
 
 World::World(){
+    exit = false;
     bulletDirection = 1;
     menu.startMenu();
     H.setSkin( menu.getPlayerSkin() );
@@ -9,27 +10,41 @@ World::World(){
 
 
 void World::startGame() {
-    int counter = 0;
-    if( counter > 100 ) counter = 0;
-    int i = -1;
     system("cls");
     createAndPrintFirstLevel();
-    bool exit = false;
     while( D.getLifePoints() > 0 && !exit ){
-        printMap( L.ptr -> matrix );
-        D.printData();
-        if( _kbhit() ){
-            char keyPressed = _getch();
-            SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {0,0});
-            switch( keyPressed ){
-                case 'A':
-                case 'a':
-                    bulletDirection = -1;
-                    if( H.getColumnPosition() != 1 ){
-                        printMap( L.ptr -> matrix );
-                        userPressA();
-                    } else if( D.getLevelNumber() > 1) changeNode(0);
-                    break; 
+        uploadEnemyBullet();
+        heroKeys();
+        for( int j = 0; j < L.ptr -> counterEnemy; j++ ){
+            for( int i = 0; i < L.ptr -> enemyArray[j].getRange() && (!(L.ptr -> bulletE[j].stopBullet( L.ptr -> matrix, L.ptr->enemyArray[j].getExistence() ))); i++ ){
+                    if( L.ptr -> bulletE[j].heroHit( H.getRowPosition(), H.getColumnPosition() ) )
+                        D.reduceLifePoints( L.ptr -> enemyArray[j].getBulletDamage() );
+                    else{
+                        L.ptr -> bulletE[j].printBullet();
+                        L.ptr -> bulletE[j].moveBullet();
+                    }
+                    D.printData();
+                    heroKeys();
+            }
+        }
+    }
+    gameover();
+}
+
+void World::heroKeys(){
+    if( _kbhit() ){
+        char keyPressed = _getch();
+        SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {0,0});
+        switch( keyPressed ){
+            case 'A':
+            case 'a':
+                bulletDirection = -1;
+                if( H.getColumnPosition() != 1 ){
+                printMap( L.ptr -> matrix );
+                userPressA();
+                } else if( D.getLevelNumber() > 1) changeNode(0);
+                break;
+                // TODO : Allinea il resto della funzione
                 case 'D':
                 case 'd': 
                     bulletDirection = 1;
@@ -37,60 +52,61 @@ void World::startGame() {
                         printMap( L.ptr -> matrix );
                         userPressD();
                     }else{ 
-                        if(D.getLevelNumber() == counterNode ) addNode();
-                        else changeNode(1);
-                    }
-                    break;
-                case 'W':
-                case 'w':
-                    printMap( L.ptr -> matrix );
-                    userPressW();
-                    break;
-                case 'S':
-                case 's':
-                    printMap( L.ptr -> matrix );
-                    userPressS();
-                    break;
-                case 'K':
-                case 'k':
-                    {
-                        if(bulletDirection == 1) {
-                            BulletTypeHero bullet(H.getRowPosition(), H.getColumnPosition()+1);
-                            for(int i = 0; i<bullet.getRange() && (!bullet.stopBullet(L.ptr->matrix)); i++) {
-                                if(bullet.enemyHit(L.ptr->matrix)) {
-                                    for(int k=0; k<L.ptr->counterEnemy; k++) {
-                                        if(bullet.getX() == L.ptr->enemyArray[k].getX() && bullet.getY() == L.ptr->enemyArray[k].getY()) {
-                                            L.ptr->enemyArray[k].cancelEnemy(L.ptr->matrix);
+                                    if(D.getLevelNumber() == counterNode ) addNode();
+                                    else changeNode(1);
+                                }
+                                break;
+                            case 'W':
+                            case 'w':
+                                printMap( L.ptr -> matrix );
+                                userPressW();
+                                break;
+                            case 'S':
+                            case 's':
+                                printMap( L.ptr -> matrix );
+                                userPressS();
+                                break;
+                            case 'K':
+                            case 'k':
+                                if(bulletDirection == 1) {
+                                    BulletTypeHero bullet(H.getRowPosition(), H.getColumnPosition()+1);
+                                    for(int i = 0; i<bullet.getRange() && (!bullet.stopBullet(L.ptr->matrix)); i++) {
+                                        if(bullet.enemyHit(L.ptr->matrix)) {
+                                            for(int k=0; k<L.ptr->counterEnemy; k++) {
+                                                if(bullet.getX() == L.ptr->enemyArray[k].getX() && bullet.getY() == L.ptr->enemyArray[k].getY()) {
+                                                    L.ptr->enemyArray[k].cancelEnemy(L.ptr->matrix);
+                                                }
+                                            }
+                                        } else {
+                                            bullet.printBullet();
+                                            bullet.moveBullet(bulletDirection);
                                         }
                                     }
-                                } else {
-                                    bullet.printBullet();
-                                    bullet.moveBullet(bulletDirection);
                                 }
-                            }
-                        }
-                        else { BulletTypeHero bullet(H.getRowPosition(), H.getColumnPosition()-1);
-                            for(int i = 0; i<bullet.getRange() && (!bullet.stopBullet(L.ptr->matrix)); i++) {
-                                if(bullet.enemyHit(L.ptr->matrix)) {
-                                    //logica per eliminare il nemico
-                                } else {
-                                    bullet.printBullet();
-                                    bullet.moveBullet(bulletDirection);
+                                else { 
+                                    BulletTypeHero bullet(H.getRowPosition(), H.getColumnPosition()-1);
+                                    for(int i = 0; i<bullet.getRange() && (!bullet.stopBullet(L.ptr->matrix)); i++) {
+                                        if(bullet.enemyHit(L.ptr->matrix)) {
+                                            for(int k=0; k<L.ptr->counterEnemy; k++) {
+                                                if(bullet.getX() == L.ptr->enemyArray[k].getX() && bullet.getY() == L.ptr->enemyArray[k].getY()) {
+                                                    L.ptr->enemyArray[k].cancelEnemy(L.ptr->matrix);
+                                                }
+                                            }
+                                        } else {
+                                            bullet.printBullet();
+                                            bullet.moveBullet(bulletDirection);
+                                        }
+                                    }
                                 }
-                            }
+                                break;
+                            case 'X':
+                            case 'x':
+                                exit = true;
+                                break;
+                            default: 
+                                break;
                         }
                     }
-                    break;
-                case 'X':
-                case 'x':
-                    exit = true;
-                    break;
-                default: 
-                    break;
-            }
-        }
-    }
-    gameover();
 }
 
 void World::userPressA(){
@@ -206,6 +222,7 @@ void World::createAndPrintFirstLevel(){
     M.initLevel( L.ptr -> matrix );
     uploadBonus();
     uploadEnemy();
+    uploadEnemyBullet();
     H.setHeroPosition( 8,1 );
     printMap( L.ptr ->matrix );
     D.printData();
@@ -226,6 +243,7 @@ void World::addNode() {
     M.initLevel( L.ptr -> matrix );
     uploadBonus();
     uploadEnemy();
+    uploadEnemyBullet();
     H.setHeroPosition( 8,1 );
     printMap( L.ptr ->matrix );
     D.printData();
@@ -273,7 +291,7 @@ void World::uploadBonus(){
 
 void World::uploadEnemy(){
     srand(time(0));
-    int k = 0; // actual enemy number
+    int k = 0; 
     // Initialize counterEnemy
     if( D.getDifficulty() == 1 ) L.ptr->counterEnemy = 3;
     else if( D.getDifficulty() == 2 ) L.ptr->counterEnemy = 6;
@@ -304,6 +322,11 @@ void World::uploadEnemy(){
             }
         }
     }
+}
+
+void World::uploadEnemyBullet(){
+    for( int i = 0; i < L.ptr -> counterEnemy; i++ )
+        L.ptr -> bulletE[i].setPosition( L.ptr -> enemyArray[i].getX(),  L.ptr -> enemyArray[i].getY()-1 );
 }
 
 void World::printMap(char m[][30]) {
