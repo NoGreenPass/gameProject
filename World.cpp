@@ -18,7 +18,6 @@ void World::startGame() {
     while( D.getLifePoints() > 0 && !exit ){
         printMap( L.ptr -> matrix );
         D.printData();
-        H.heroOnScreen();
         if( _kbhit() ){
             char keyPressed = _getch();
             SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {0,0});
@@ -28,7 +27,6 @@ void World::startGame() {
                     bulletDirection = -1;
                     if( H.getColumnPosition() != 1 ){
                         printMap( L.ptr -> matrix );
-                        H.heroOnScreen();
                         userPressA();
                     } else if( D.getLevelNumber() > 1) changeNode(0);
                     break; 
@@ -37,7 +35,6 @@ void World::startGame() {
                     bulletDirection = 1;
                     if( H.getColumnPosition() != 28 ){
                         printMap( L.ptr -> matrix );
-                        H.heroOnScreen();
                         userPressD();
                     }else{ 
                         if(D.getLevelNumber() == counterNode ) addNode();
@@ -47,45 +44,21 @@ void World::startGame() {
                 case 'W':
                 case 'w':
                     printMap( L.ptr -> matrix );
-                    H.heroOnScreen();
                     userPressW();
                     break;
                 case 'S':
                 case 's':
                     printMap( L.ptr -> matrix );
-                    H.heroOnScreen();
                     userPressS();
                     break;
                 case 'K':
                 case 'k':
                     if( bulletDirection == 1 ){
                         bulletH.setPosition( H.getRowPosition(), H.getColumnPosition()+1 );
-                        for( int i = 0; i < bulletH.getRange() && bulletH.stopBullet( L.ptr -> matrix ) ; i++ ){
-                            bulletH.spawnBullet( L.ptr -> matrix );
-                            printMap( L.ptr -> matrix );
-                            H.heroOnScreen();
-                            Sleep( 100 );
-                            if( bulletH.enemyHit( L.ptr -> matrix ) ) L.ptr -> enemyArray[i].reduceLife( L.ptr -> matrix, 1 );
-                            printMap( L.ptr -> matrix );
-                            H.heroOnScreen();
-                            bulletH.cancelBullet( L.ptr -> matrix );
-                            printMap( L.ptr -> matrix );
-                            H.heroOnScreen();
-                            bulletH.moveBullet( bulletDirection );
-                        }
+                        handleBullet();
                     } else {
                         bulletH.setPosition( H.getRowPosition(), H.getColumnPosition()-1 );
-                        for( int i = 0; i < bulletH.getRange() && bulletH.stopBullet( L.ptr -> matrix ) ; i++ ){
-                            bulletH.spawnBullet( L.ptr -> matrix );
-                            printMap( L.ptr -> matrix );
-                            H.heroOnScreen();
-                            Sleep( 100 );
-                            if( bulletH.enemyHit( L.ptr -> matrix ) ) L.ptr -> enemyArray[i].reduceLife( L.ptr -> matrix, 1 );
-                            printMap( L.ptr -> matrix );
-                            H.heroOnScreen();
-                            bulletH.cancelBullet( L.ptr -> matrix );
-                            bulletH.moveBullet( bulletDirection );
-                        }
+                        handleBullet();
                     }
                     break;
                 case 'X':
@@ -213,9 +186,8 @@ void World::createAndPrintFirstLevel(){
     M.initLevel( L.ptr -> matrix );
     uploadBonus();
     uploadEnemy();
-    printMap( L.ptr ->matrix );
     H.setHeroPosition( 8,1 );
-    H.heroOnScreen();
+    printMap( L.ptr ->matrix );
     D.printData();
 }
 
@@ -234,9 +206,8 @@ void World::addNode() {
     M.initLevel( L.ptr -> matrix );
     uploadBonus();
     uploadEnemy();
-    printMap( L.ptr ->matrix );
     H.setHeroPosition( 8,1 );
-    H.heroOnScreen();
+    printMap( L.ptr ->matrix );
     D.printData();
 }
 
@@ -244,16 +215,14 @@ void World::changeNode( bool direction ) {
     if( !direction ){ // direction == 0 se hero si sposta all'indietro
         L.ptr = L.ptr -> prec;
         D.reduceLevelNumber();
-        printMap(L.ptr ->matrix);
         H.setHeroPosition( 8,28 );
-        H.heroOnScreen();
+        printMap(L.ptr ->matrix);
         D.printData();
     } else{
         L.ptr = L.ptr -> next;
         D.riseLevelNumber();
-        printMap(L.ptr ->matrix);
         H.setHeroPosition( 8,1 );
-        H.heroOnScreen();
+        printMap(L.ptr ->matrix);
         D.printData();
     }
 }
@@ -315,7 +284,18 @@ void World::uploadEnemy(){
             }
         }
     }
+}
 
+void World::handleBullet(){
+    for( int i = 0; i < bulletH.getRange() && bulletH.stopBullet( L.ptr -> matrix ) ; i++ ){
+        bulletH.spawnBullet( L.ptr -> matrix );
+        printMap( L.ptr -> matrix );
+        Sleep( 20 );
+        bulletH.cancelBullet( L.ptr -> matrix );
+        if( bulletH.enemyHit( L.ptr -> matrix ) ) L.ptr -> enemyArray[i].reduceLife( L.ptr -> matrix, 1 );
+        printMap( L.ptr -> matrix );
+        bulletH.moveBullet( bulletDirection );
+    }
 }
 
 void World::printMap(char m[][30]) {
@@ -326,6 +306,7 @@ void World::printMap(char m[][30]) {
         }
         cout<<endl;
     }
+    H.heroOnScreen();
 }
 
 void World::gameover() {

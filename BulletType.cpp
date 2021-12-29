@@ -1,7 +1,7 @@
 #include "BulletType.hpp"
 
 BulletTypeHero::BulletTypeHero(){
-    range = 2; // default range
+    range = 3; // default range
 }
 
 bool BulletTypeHero::enemyHit( char matrix[][30] ){

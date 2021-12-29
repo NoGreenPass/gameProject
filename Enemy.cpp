@@ -49,4 +49,5 @@ int Enemy::getLife(){
 void Enemy::reduceLife( char matrix[][30], int dmg ){
     life = life - dmg;
     if( life == 0 ) cancelEnemy( matrix );
+    else matrix[x][y] = skin;
 }

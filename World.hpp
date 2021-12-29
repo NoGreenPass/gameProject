@@ -50,6 +50,7 @@ class World {
         void changeNode( bool ); //aggiorna il puntatore al nodo corrente (avanti 1 e indietro 0 )
         void uploadBonus();
         void uploadEnemy();
+        void handleBullet();
         void printMap(char [][30]); //stampa la matrice
         void gameover(); //gameover, richiamare il menu per esito finale
 };
