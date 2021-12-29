@@ -1,6 +1,7 @@
 #include "World.hpp"
 
 World::World(){
+    bulletDirection = 1;
     menu.startMenu();
     H.setSkin( menu.getPlayerSkin() );
     D.setName( menu.getPlayerName() );
@@ -24,6 +25,7 @@ void World::startGame() {
             switch( keyPressed ){
                 case 'A':
                 case 'a':
+                    bulletDirection = -1;
                     if( H.getColumnPosition() != 1 ){
                         printMap( L.ptr -> matrix );
                         H.heroOnScreen();
@@ -32,6 +34,7 @@ void World::startGame() {
                     break; 
                 case 'D':
                 case 'd': 
+                    bulletDirection = 1;
                     if( H.getColumnPosition() != 28 ){
                         printMap( L.ptr -> matrix );
                         H.heroOnScreen();
@@ -52,7 +55,39 @@ void World::startGame() {
                     printMap( L.ptr -> matrix );
                     H.heroOnScreen();
                     userPressS();
-                    break; 
+                    break;
+                case 'K':
+                case 'k':
+                    if( bulletDirection == 1 ){
+                        bulletH.setPosition( H.getRowPosition(), H.getColumnPosition()+1 );
+                        for( int i = 0; i < bulletH.getRange() && bulletH.stopBullet( L.ptr -> matrix ) ; i++ ){
+                            bulletH.spawnBullet( L.ptr -> matrix );
+                            printMap( L.ptr -> matrix );
+                            H.heroOnScreen();
+                            Sleep( 100 );
+                            if( bulletH.enemyHit( L.ptr -> matrix ) ) L.ptr -> enemyArray[i].reduceLife( L.ptr -> matrix, 1 );
+                            printMap( L.ptr -> matrix );
+                            H.heroOnScreen();
+                            bulletH.cancelBullet( L.ptr -> matrix );
+                            printMap( L.ptr -> matrix );
+                            H.heroOnScreen();
+                            bulletH.moveBullet( bulletDirection );
+                        }
+                    } else {
+                        bulletH.setPosition( H.getRowPosition(), H.getColumnPosition()-1 );
+                        for( int i = 0; i < bulletH.getRange() && bulletH.stopBullet( L.ptr -> matrix ) ; i++ ){
+                            bulletH.spawnBullet( L.ptr -> matrix );
+                            printMap( L.ptr -> matrix );
+                            H.heroOnScreen();
+                            Sleep( 100 );
+                            if( bulletH.enemyHit( L.ptr -> matrix ) ) L.ptr -> enemyArray[i].reduceLife( L.ptr -> matrix, 1 );
+                            printMap( L.ptr -> matrix );
+                            H.heroOnScreen();
+                            bulletH.cancelBullet( L.ptr -> matrix );
+                            bulletH.moveBullet( bulletDirection );
+                        }
+                    }
+                    break;
                 case 'X':
                 case 'x':
                     exit = true;
@@ -72,8 +107,7 @@ void World::userPressA(){
             for( int i = 0; i < MAXBONUS; i++ ){
                 if( H.getRowPosition() == L.ptr -> bonusArray[i].getX() && ( H.getColumnPosition()-1 ) == L.ptr -> bonusArray[i].getY()){
                     if( L.ptr -> bonusArray[i].getExistence() ){
-                        L.ptr -> matrix[L.ptr -> bonusArray[i].getX()][L.ptr -> bonusArray[i].getY()] = ' ';
-                        L.ptr -> bonusArray[i].setExistence( false );
+                        L.ptr -> bonusArray[i].cancelBonus( L.ptr -> matrix );
                         if( L.ptr -> bonusArray[i].getSkin() == '$' ){
                             BonusType$ $( D.getDifficulty() );
                             D.riseScore( $.getPointsEarned() );
@@ -88,8 +122,7 @@ void World::userPressA(){
                 // Interaction Hero-Enemy
                 if( H.getRowPosition() == L.ptr -> enemyArray[i].getX() && ( H.getColumnPosition()-1 ) == L.ptr -> enemyArray[i].getY()){
                     if( L.ptr -> enemyArray[i].getExistence() ){
-                        L.ptr -> matrix[L.ptr -> enemyArray[i].getX()][L.ptr -> enemyArray[i].getY()] = ' ';
-                        L.ptr -> enemyArray[i].setExistence( false );
+                        L.ptr -> enemyArray[i].cancelEnemy( L.ptr -> matrix );
                         D.reduceLifePoints( L.ptr->enemyArray[i].getDamage() );
                     }  
                 }
@@ -107,8 +140,7 @@ void World::userPressD(){
             for( int i = 0; i < MAXBONUS; i++ ){
                 if( H.getRowPosition() == L.ptr -> bonusArray[i].getX() && ( H.getColumnPosition()+1 ) ==L.ptr -> bonusArray[i].getY() ){
                     if( L.ptr -> bonusArray[i].getExistence() ){
-                        L.ptr -> matrix[L.ptr -> bonusArray[i].getX()][L.ptr -> bonusArray[i].getY()] = ' ';
-                        L.ptr -> bonusArray[i].setExistence( false );
+                        L.ptr -> bonusArray[i].cancelBonus( L.ptr -> matrix );
                         if( L.ptr -> bonusArray[i].getSkin() == '$' ){
                             BonusType$ $( D.getDifficulty() );
                             D.riseScore( $.getPointsEarned() );
@@ -123,8 +155,7 @@ void World::userPressD(){
                 // Interaction Hero-Enemy
                 if( H.getRowPosition() == L.ptr -> enemyArray[i].getX() && ( H.getColumnPosition()+1 ) == L.ptr -> enemyArray[i].getY()){
                     if( L.ptr -> enemyArray[i].getExistence() ){
-                        L.ptr -> matrix[L.ptr -> enemyArray[i].getX()][L.ptr -> enemyArray[i].getY()] = ' ';
-                        L.ptr -> enemyArray[i].setExistence( false );
+                        L.ptr -> enemyArray[i].cancelEnemy( L.ptr -> matrix );
                         D.reduceLifePoints( L.ptr->enemyArray[i].getDamage() );
                     }  
                 }

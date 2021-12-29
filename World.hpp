@@ -1,6 +1,7 @@
 #include "Hero.hpp"
 #include "BonusType.hpp"
 #include "EnemyType.hpp"
+#include "BulletType.hpp"
 #include "Menu.hpp"
 #include "GameData.hpp"
 #include "Map.hpp"
@@ -34,7 +35,8 @@ class World {
         List L;
         GameData D;
         Menu menu;
-        /* Bullet B; */
+        BulletTypeHero bulletH;
+        int bulletDirection;
         Hero H;
     public:
         World();

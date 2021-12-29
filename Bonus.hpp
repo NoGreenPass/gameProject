@@ -7,9 +7,9 @@ class Bonus{
     public:
         Bonus();
         void initPosition( int, int );
+        void cancelBonus( char [][30] );
         char getSkin();
         int getX();
         int getY();
-        void setExistence( bool );
         bool getExistence();
 };

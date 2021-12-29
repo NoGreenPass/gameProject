@@ -9,7 +9,6 @@ int BonusType$::getPointsEarned(){
     return pointsEarned;
 }
 
-
 BonusTypeH::BonusTypeH( int diff ){
     skin = 'H';
     lifeEarned = 10 * diff;

@@ -11,14 +11,14 @@ class Enemy{
     public:
         Enemy();
         void initPosition( int, int );
+        void cancelEnemy( char [][30] );
         char getSkin();
         int getX();
         int getY();
-        void setExistence( bool );
         bool getExistence();
         int getRange();
         int getDamage();
         int getBulletDamage();
         int getLife();
-        void reduceLife( int );
+        void reduceLife( char [][30], int );
 };

@@ -1,12 +1,17 @@
 #include "Enemy.hpp"
 
 Enemy::Enemy(){
-    setExistence( true );
+    exist = true;
 }
 
 void Enemy::initPosition( int x, int y ){
     this->x = x;
     this->y = y;
+}
+
+void Enemy::cancelEnemy( char matrix[][30] ){
+    matrix[x][y] = ' ';
+    exist = false;
 }
 
 char Enemy::getSkin(){
@@ -19,10 +24,6 @@ int Enemy::getX(){
 
 int Enemy::getY(){
     return y;
-}
-
-void Enemy::setExistence( bool tmp ){
-    exist = tmp;
 }
 
 bool Enemy::getExistence(){
@@ -45,6 +46,7 @@ int Enemy::getLife(){
     return life;
 }
 
-void Enemy::reduceLife( int dmg ){
+void Enemy::reduceLife( char matrix[][30], int dmg ){
     life = life - dmg;
+    if( life == 0 ) cancelEnemy( matrix );
 }
