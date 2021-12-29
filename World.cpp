@@ -53,12 +53,32 @@ void World::startGame() {
                     break;
                 case 'K':
                 case 'k':
-                    if( bulletDirection == 1 ){
-                        bulletH.setPosition( H.getRowPosition(), H.getColumnPosition()+1 );
-                        handleBullet();
-                    } else {
-                        bulletH.setPosition( H.getRowPosition(), H.getColumnPosition()-1 );
-                        handleBullet();
+                    {
+                        if(bulletDirection == 1) {
+                            BulletTypeHero bullet(H.getRowPosition(), H.getColumnPosition()+1);
+                            for(int i = 0; i<bullet.getRange() && (!bullet.stopBullet(L.ptr->matrix)); i++) {
+                                if(bullet.enemyHit(L.ptr->matrix)) {
+                                    for(int k=0; k<L.ptr->counterEnemy; k++) {
+                                        if(bullet.getX() == L.ptr->enemyArray[k].getX() && bullet.getY() == L.ptr->enemyArray[k].getY()) {
+                                            L.ptr->enemyArray[k].cancelEnemy(L.ptr->matrix);
+                                        }
+                                    }
+                                } else {
+                                    bullet.printBullet();
+                                    bullet.moveBullet(bulletDirection);
+                                }
+                            }
+                        }
+                        else { BulletTypeHero bullet(H.getRowPosition(), H.getColumnPosition()-1);
+                            for(int i = 0; i<bullet.getRange() && (!bullet.stopBullet(L.ptr->matrix)); i++) {
+                                if(bullet.enemyHit(L.ptr->matrix)) {
+                                    //logica per eliminare il nemico
+                                } else {
+                                    bullet.printBullet();
+                                    bullet.moveBullet(bulletDirection);
+                                }
+                            }
+                        }
                     }
                     break;
                 case 'X':
@@ -283,18 +303,6 @@ void World::uploadEnemy(){
                 } else L.ptr->matrix[i][j] = ' ';
             }
         }
-    }
-}
-
-void World::handleBullet(){
-    for( int i = 0; i < bulletH.getRange() && bulletH.stopBullet( L.ptr -> matrix ) ; i++ ){
-        bulletH.spawnBullet( L.ptr -> matrix );
-        printMap( L.ptr -> matrix );
-        Sleep( 20 );
-        bulletH.cancelBullet( L.ptr -> matrix );
-        if( bulletH.enemyHit( L.ptr -> matrix ) ) L.ptr -> enemyArray[i].reduceLife( L.ptr -> matrix, 1 );
-        printMap( L.ptr -> matrix );
-        bulletH.moveBullet( bulletDirection );
     }
 }
 

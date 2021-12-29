@@ -3,7 +3,6 @@ class Enemy{
         char skin;
         int x;
         int y;
-        int life;
         int damage;
         int bulletDamage;
         int bulletRange;
@@ -19,6 +18,4 @@ class Enemy{
         int getRange();
         int getDamage();
         int getBulletDamage();
-        int getLife();
-        void reduceLife( char [][30], int );
 };
