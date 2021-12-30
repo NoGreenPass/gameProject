@@ -59,10 +59,6 @@ void Hero::setSkin( char skin ){
     this -> skin = skin;
 }
 
-char Hero::getSkin(){
-    return skin;
-}
-
 short Hero::getRowPosition(){
     return row;
 }

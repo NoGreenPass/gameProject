@@ -227,7 +227,7 @@ void World::addNode() {
 }
 
 void World::changeNode( bool direction ) { 
-    if( !direction ){ // direction == 0 se hero si sposta all'indietro
+    if( !direction ){ 
         L.ptr = L.ptr -> prec;
         D.reduceLevelNumber();
         H.setHeroPosition( 8,28 );

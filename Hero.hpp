@@ -15,9 +15,7 @@ class Hero{
         void isMovingUp( bool );
         void isMovingDown( bool );
         void heroOnScreen();
-
         void setSkin( char );
-        char getSkin();
         short getRowPosition();
         short getColumnPosition();
 };

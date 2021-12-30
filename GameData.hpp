@@ -4,33 +4,32 @@
 using namespace std;
 
 class GameData{
+    protected:
+        char name[20]; 
+        int levelNumber; 
+        int lifePoints; 
+        int score; 
+        int difficulty; 
     public:
-        GameData(); // Inizializza i dati gioco con valori di default
+        GameData(); 
 
         int getLevelNumber();
-        void riseLevelNumber(); // Incrementa il numero del livello ( sotto opportune condizioni )
+        void riseLevelNumber(); 
         void reduceLevelNumber();
         void printLevelNumber();
         
-        void printData(); // Stampa dati gioco in una posizione predefinita dello schermo
+        void printData(); 
         void printName();
 
         int getLifePoints();
-        void riseLifePoints( int ); // Incrementa i punti vita ( sotto opportune condizioni )
-        void reduceLifePoints( int ); // Diminuisce i punti vita ( sotto opportune condizioni )
+        void riseLifePoints( int ); 
+        void reduceLifePoints( int ); 
 
-        void riseScore( int ); // Incrementa il punteggio ( sotto opportune condizioni )
+        void riseScore( int ); 
         void printScore();
      
-        void printDifficulty(); // Stampa il livello di difficolta' ( vista utente )
-        int getDifficulty(); // return difficulty
+        void printDifficulty();
+        int getDifficulty(); 
 
-        void setName( char [] ); // Imposta il nome giocatore
-     
-    protected:
-        char name[20]; // Nome giocatore
-        int levelNumber; // Numero livello
-        int lifePoints; // Punti vita
-        int score; // Punteggio
-        int difficulty; // Livello di difficolta'
+        void setName( char [] ); 
 } ;

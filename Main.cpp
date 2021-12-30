@@ -1,7 +1,7 @@
 #include "World.hpp"
 
 int main(){
-    // Nascondo il cursore all'utente per migliorare la visibilità del gioco
+    // HideCursor
     CONSOLE_CURSOR_INFO info;
     info.dwSize = 100;
     info.bVisible = 0;

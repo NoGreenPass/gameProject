@@ -1,5 +1,3 @@
-// Autore: Federico Piozzi
-// MENU DINAMICO
 #include "Menu.hpp"
 
 Menu::Menu(){}
@@ -88,16 +86,16 @@ void Menu::DisplayMessage5(){
     system("cls");
     cout << "AUTORI" << endl
     << "===============================================================================" << endl
-    << "Elisabetta Contini " /* scrivere info */ << endl
-    << "Simone Vitaloni " /* scrivere info */ << endl 
-    << "Federico Piozzi " /* scrivere info */ << endl << endl
+    << "Elisabetta Contini    0000991260" << endl
+    << "Simone Vitaloni       0000975596" << endl 
+    << "Federico Piozzi       0000978589" << endl << endl
     << "Premere N per iniziare la partita!" << endl;
     DefaultDisplayMessage( 0, 9 );
     DynamicMenu( _getch() );
 }
 
 void Menu::DefaultDisplayMessage( short x, short y ){
-    SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {x,y}); // Set posizione di stampa su schermo
+    SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {x,y}); 
     cout << "EXIT:X\t" << "BACK:B\t" << "NEXT:N\t" << endl;
 }
 

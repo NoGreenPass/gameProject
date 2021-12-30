@@ -5,28 +5,27 @@ using namespace std;
 
 class Menu{
     protected:
-        char username[20]; // Nome Utente che inizia una partita
-        char skin; // Immagine stampata a schermo del personaggio
-        int count = 1; // Contatore che riconosce il numero della pagina del menu
+        char username[20]; 
+        char skin; 
+        int count = 1; 
     public:
         Menu();
 
         void startMenu();
-        void DisplayMessage1(); // Stampa messaggio di benvenuto ( chiamata all'avvio del gioco )
-        void DisplayMessage2(); // Richiede di inserire il nome utente ( username )
-        void DisplayMessage3(); // Mostra le regole del gioco ( versione semplice delle regole vere e proprie )
-        void DisplayMessage4(); // Scelta del personaggio
-         // Funzioni ausiliarie a DisplayMessage 4 :
-        bool setSkinNumber(); // Prende in input il numero da tastiera e assegna il corrispondente carattere a skin
-        void DisplayMessage5(); // Pagina Autori
+        void DisplayMessage1(); 
+        void DisplayMessage2(); 
+        void DisplayMessage3(); 
+        void DisplayMessage4();
+        bool setSkinNumber(); 
+        void DisplayMessage5(); 
 
-        void DefaultDisplayMessage( short, short ); // Stampa scelta: Exit, Back, Next
+        void DefaultDisplayMessage( short, short );
         void DynamicMenu( int ) ;
-        void DisplayNumber(); // Associa al valore del count il DisplayMessage da stampare
+        void DisplayNumber(); 
         void ExitMenu();
 
         void endGame();
         
-        char getPlayerSkin(); // return della skin 
-        char *getPlayerName() ; // return del nome giocatore
+        char getPlayerSkin(); 
+        char *getPlayerName() ; 
 };

@@ -1,7 +1,3 @@
-// Map - Update matrix with level patterns
-// X - Possible enemy location
-// Y - Possible bonus location
-
 #include <cstring>
 #include <stdlib.h>
 #include <time.h>
@@ -18,8 +14,6 @@ class Map{
         char heroSkin;
     public:
         Map();
-        // Initialize Pattern
         void initPattern();
-        // Initialize level
         void initLevel( char [][30] );
 };

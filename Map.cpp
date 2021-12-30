@@ -60,7 +60,6 @@ void Map::initPattern(){
 void Map::initLevel( char matrix[][30] ){
     int k = 0;
     int casualNumber;
-    // Initialize casualNumber
     srand(time(0));
     casualNumber = rand() % 5;
     switch( casualNumber ){

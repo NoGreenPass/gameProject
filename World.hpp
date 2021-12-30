@@ -32,12 +32,12 @@ class World {
         ptr p = 0;
         ptr q = 0;
         ptr tmp;
-        int counterNode = 0;
         List L;
         GameData D;
         Menu menu;
-        int bulletDirection;
         Hero H;
+        int counterNode = 0;
+        int bulletDirection;
         bool exit;
     public:
         World();
@@ -48,12 +48,12 @@ class World {
         void userPressW();
         void userPressS();
         void createAndPrintFirstLevel(); 
-        void addNode(); //aggiungere un nodo alla lista (ricordarsi di richiamare Platform)
-        void changeNode( bool ); //aggiorna il puntatore al nodo corrente (avanti 1 e indietro 0 )
+        void addNode(); 
+        void changeNode( bool ); 
         void uploadBonus();
         void uploadEnemy();
         void uploadEnemyBullet();
         void uploadHeroBullet( BulletTypeHero );
-        void printMap(char [][30]); //stampa la matrice
-        void gameover(); //gameover, richiamare il menu per esito finale
+        void printMap(char [][30]); 
+        void gameover(); 
 };
