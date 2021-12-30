@@ -29,12 +29,13 @@ void Menu::DisplayMessage2(){
 
 void Menu::DisplayMessage3(){
     system("cls");
-    cout << "REGOLE DEL GIOCO" << endl
+    cout << "COMANDI" << endl
     << "===============================================================================" << endl
+    << "W := Il personaggio salta sulla piattaforma vicina a lui ( se non ci sono piattaforme nelle vicinanze e' inutilizzabile )" << endl
+    << "S := Il personaggio scende a terra se si trova al limite di una piattaforma" << endl
     << "A := Il personaggio si muove verso sinistra di una posizione" << endl
     << "D := Il personaggio si muove verso destra di una posizione" << endl
-    << "K := Il personaggio spara un colpo" << endl 
-    << "P := Gioco in pausa" << endl 
+    << "K := Il personaggio spara un colpo" << endl  
     << "X := Finisce la partita" << endl;
     DefaultDisplayMessage( 0, 8 );
     DynamicMenu( _getch() );
@@ -78,7 +79,6 @@ bool Menu::setSkinNumber(){
         default:
             skin = '@';
             return 1;
-            break;
     }
 }
 
