@@ -16,12 +16,12 @@ void World::startGame() {
         uploadEnemyBullet();
         heroKeys();
         for( int j = 0; j < L.ptr -> counterEnemy; j++ ){
-            for( int i = 0; i < L.ptr -> enemyArray[j].getRange() && (!(L.ptr -> bulletE[j].stopBullet( L.ptr -> matrix, L.ptr->enemyArray[j].getExistence() ))); i++ ){
+            for( int i = 0; i < L.ptr -> enemyArray[j].getRange() && (!(L.ptr -> bulletE[j].stopBulletEnemy( L.ptr -> matrix, L.ptr->enemyArray[j].getExistence() ))); i++ ){
                     if( L.ptr -> bulletE[j].heroHit( H.getRowPosition(), H.getColumnPosition() ) )
                         D.reduceLifePoints( L.ptr -> enemyArray[j].getBulletDamage() );
                     else{
                         L.ptr -> bulletE[j].printBullet();
-                        L.ptr -> bulletE[j].moveBullet();
+                        L.ptr -> bulletE[j].moveBullet( -1 );
                     }
                     D.printData();
                     heroKeys();
@@ -307,7 +307,7 @@ void World::uploadEnemyBullet(){
 }
 
 void World::uploadHeroBullet( BulletTypeHero bullet ){
-    for(int i = 0; i<bullet.getRange() && (!bullet.stopBullet(L.ptr->matrix)); i++) {
+    for(int i = 0; i<bullet.getRange() && (!bullet.stopBulletHero(L.ptr->matrix)); i++) {
         if(bullet.enemyHit(L.ptr->matrix)) {
             for(int k=0; k<L.ptr->counterEnemy; k++) {
                 if(bullet.getX() == L.ptr->enemyArray[k].getX() && bullet.getY() == L.ptr->enemyArray[k].getY()) {
