@@ -44,69 +44,46 @@ void World::heroKeys(){
                 userPressA();
                 } else if( D.getLevelNumber() > 1) changeNode(0);
                 break;
-                // TODO : Allinea il resto della funzione
-                case 'D':
-                case 'd': 
-                    bulletDirection = 1;
-                    if( H.getColumnPosition() != 28 ){
-                        printMap( L.ptr -> matrix );
-                        userPressD();
-                    }else{ 
-                                    if(D.getLevelNumber() == counterNode ) addNode();
-                                    else changeNode(1);
-                                }
-                                break;
-                            case 'W':
-                            case 'w':
-                                printMap( L.ptr -> matrix );
-                                userPressW();
-                                break;
-                            case 'S':
-                            case 's':
-                                printMap( L.ptr -> matrix );
-                                userPressS();
-                                break;
-                            case 'K':
-                            case 'k':
-                                if(bulletDirection == 1) {
-                                    BulletTypeHero bullet(H.getRowPosition(), H.getColumnPosition()+1);
-                                    for(int i = 0; i<bullet.getRange() && (!bullet.stopBullet(L.ptr->matrix)); i++) {
-                                        if(bullet.enemyHit(L.ptr->matrix)) {
-                                            for(int k=0; k<L.ptr->counterEnemy; k++) {
-                                                if(bullet.getX() == L.ptr->enemyArray[k].getX() && bullet.getY() == L.ptr->enemyArray[k].getY()) {
-                                                    L.ptr->enemyArray[k].cancelEnemy(L.ptr->matrix);
-                                                }
-                                            }
-                                        } else {
-                                            bullet.printBullet();
-                                            bullet.moveBullet(bulletDirection);
-                                        }
-                                    }
-                                }
-                                else { 
-                                    BulletTypeHero bullet(H.getRowPosition(), H.getColumnPosition()-1);
-                                    for(int i = 0; i<bullet.getRange() && (!bullet.stopBullet(L.ptr->matrix)); i++) {
-                                        if(bullet.enemyHit(L.ptr->matrix)) {
-                                            for(int k=0; k<L.ptr->counterEnemy; k++) {
-                                                if(bullet.getX() == L.ptr->enemyArray[k].getX() && bullet.getY() == L.ptr->enemyArray[k].getY()) {
-                                                    L.ptr->enemyArray[k].cancelEnemy(L.ptr->matrix);
-                                                }
-                                            }
-                                        } else {
-                                            bullet.printBullet();
-                                            bullet.moveBullet(bulletDirection);
-                                        }
-                                    }
-                                }
-                                break;
-                            case 'X':
-                            case 'x':
-                                exit = true;
-                                break;
-                            default: 
-                                break;
-                        }
-                    }
+            case 'D':
+            case 'd': 
+                bulletDirection = 1;
+                if( H.getColumnPosition() != 28 ){
+                    printMap( L.ptr -> matrix );
+                    userPressD();
+                }else{ 
+                    if(D.getLevelNumber() == counterNode ) addNode();
+                    else changeNode(1);
+                }
+                break;
+            case 'W':
+            case 'w':
+                printMap( L.ptr -> matrix );
+                userPressW();
+                break;
+            case 'S':
+            case 's':
+                printMap( L.ptr -> matrix );
+                userPressS();
+                break;
+            case 'K':
+            case 'k':
+                if(bulletDirection == 1) {
+                    BulletTypeHero bullet(H.getRowPosition(), H.getColumnPosition()+1);
+                    uploadHeroBullet( bullet );
+                }
+                else { 
+                    BulletTypeHero bullet(H.getRowPosition(), H.getColumnPosition()-1);
+                    uploadHeroBullet( bullet );
+                }
+                break;
+            case 'X':
+            case 'x':
+                exit = true;
+                break;
+            default: 
+                break;
+        }
+    }
 }
 
 void World::userPressA(){
@@ -329,6 +306,21 @@ void World::uploadEnemyBullet(){
         L.ptr -> bulletE[i].setPosition( L.ptr -> enemyArray[i].getX(),  L.ptr -> enemyArray[i].getY()-1 );
 }
 
+void World::uploadHeroBullet( BulletTypeHero bullet ){
+    for(int i = 0; i<bullet.getRange() && (!bullet.stopBullet(L.ptr->matrix)); i++) {
+        if(bullet.enemyHit(L.ptr->matrix)) {
+            for(int k=0; k<L.ptr->counterEnemy; k++) {
+                if(bullet.getX() == L.ptr->enemyArray[k].getX() && bullet.getY() == L.ptr->enemyArray[k].getY()) {
+                    L.ptr->enemyArray[k].cancelEnemy(L.ptr->matrix);
+                }
+            }
+        } else {
+            bullet.printBullet();
+            bullet.moveBullet(bulletDirection);
+        }
+    }
+}
+
 void World::printMap(char m[][30]) {
     SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE), {0,0});
     for( int i = 0; i < 10; i++ ){
@@ -348,7 +340,7 @@ void World::gameover() {
     cout << "\t\t";
     D.printLevelNumber();
     cout << endl << endl << "Premere X per uscire." << endl;
-    while( getch() != 'x' )
+    while( getch() != 'x' ){}
     menu.ExitMenu();
 }
 

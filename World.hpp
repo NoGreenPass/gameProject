@@ -54,6 +54,7 @@ class World {
         void uploadBonus();
         void uploadEnemy();
         void uploadEnemyBullet();
+        void uploadHeroBullet( BulletTypeHero );
         void printMap(char [][30]); //stampa la matrice
         void gameover(); //gameover, richiamare il menu per esito finale
 };
