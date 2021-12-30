@@ -60,26 +60,27 @@ bool Menu::setSkinNumber(){
     switch( key = _getch() ){
         case '1':
             skin = '@';
-            return 1;
+            break;
         case '2':
             skin = '#';
-            return 1;
+            break;
         case '3':
             skin = 'A';
-            return 1;
+            break;
         case '4':
             skin = 'B';
-            return 1;
+            break;
         case '5':
             skin = 'C';
-            return 1;
+            break;
         case '6':
             skin = 'F';
-            return 1;
+            break;
         default:
             skin = '@';
-            return 1;
+            break;
     }
+    return 1;
 }
 
 void Menu::DisplayMessage5(){
