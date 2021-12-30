@@ -22,7 +22,7 @@ void Menu::DisplayMessage2(){
     system("cls");
     cout << "NOME UTENTE" << endl 
     << "===============================================================================" << endl 
-    << " Inserire Nome Utente ( MAX 20 caratteri ): " << endl;
+    << "Inserire Nome Utente ( MAX 20 caratteri ): " << endl;
     cin.getline( username, 20 );
     cout << "\nPremere N per proseguire..." << endl;
     DefaultDisplayMessage( 0, 8);

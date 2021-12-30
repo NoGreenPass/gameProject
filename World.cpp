@@ -312,7 +312,7 @@ void World::uploadEnemy(){
                         N.initPosition( i, j );
                         L.ptr -> enemyArray[k] = N;
                     } else {
-                        EnemyTypeO I( D.getDifficulty() );
+                        EnemyTypeI I( D.getDifficulty() );
                         L.ptr -> matrix[i][j] = I.getSkin();
                         I.initPosition( i, j );
                         L.ptr -> enemyArray[k] = I;
