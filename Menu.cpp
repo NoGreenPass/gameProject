@@ -29,14 +29,19 @@ void Menu::DisplayMessage2(){
 
 void Menu::DisplayMessage3(){
     system("cls");
-    cout << "COMANDI" << endl
+    cout << "REGOLAMENTO" << endl
     << "===============================================================================" << endl
     << "W := Il personaggio salta sulla piattaforma vicina a lui ( se non ci sono piattaforme nelle vicinanze e' inutilizzabile )" << endl
-    << "S := Il personaggio scende a terra se si trova al limite di una piattaforma" << endl
+    << "S := Il personaggio scende a terra o sulla piattaforma immediatamente sotto di lui se e solo se si trova al limite di una piattaforma" << endl
     << "A := Il personaggio si muove verso sinistra di una posizione" << endl
     << "D := Il personaggio si muove verso destra di una posizione" << endl
     << "K := Il personaggio spara un colpo" << endl  
-    << "X := Finisce la partita" << endl;
+    << "X := Finisce la partita" << endl
+    << "O := Nemico che spara un proiettile a distanza 1, fa danni elevati se ucciso corpo a corpo" << endl
+    << "N := Nemico che spara un proiettile a distanza 2, fa danni medi se ucciso corpo a corpo" << endl
+    << "I := Nemico che spara un proiettile a distanza 3, fa danni bassi se ucciso corpo a corpo" << endl
+    << "$ := Bonus che aumenta il punteggio" << endl
+    << "H := Bonus che aumenta i punti vita" << endl;
     DefaultDisplayMessage( 0, 8 );
     DynamicMenu( _getch() );
 }
