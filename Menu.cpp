@@ -31,8 +31,8 @@ void Menu::DisplayMessage3(){
     system("cls");
     cout << "REGOLAMENTO" << endl
     << "===============================================================================" << endl
-    << "W := Il personaggio salta sulla piattaforma vicina a lui ( se non ci sono piattaforme nelle vicinanze e' inutilizzabile )" << endl
-    << "S := Il personaggio scende a terra o sulla piattaforma immediatamente sotto di lui se e solo se si trova al limite di una piattaforma" << endl
+    << "W := Il personaggio salta sulla piattaforma vicina a lui" << endl
+    << "S := Il personaggio scende a terra o sulla piattaforma immediatamente sotto di lui" << endl
     << "A := Il personaggio si muove verso sinistra di una posizione" << endl
     << "D := Il personaggio si muove verso destra di una posizione" << endl
     << "K := Il personaggio spara un colpo" << endl  
@@ -42,7 +42,7 @@ void Menu::DisplayMessage3(){
     << "I := Nemico che spara un proiettile a distanza 3, fa danni bassi se ucciso corpo a corpo" << endl
     << "$ := Bonus che aumenta il punteggio" << endl
     << "H := Bonus che aumenta i punti vita" << endl;
-    DefaultDisplayMessage( 0, 8 );
+    DefaultDisplayMessage( 0, 14 );
     DynamicMenu( _getch() );
 }
 
